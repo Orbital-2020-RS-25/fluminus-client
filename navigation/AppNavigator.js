@@ -7,6 +7,7 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import Homescreen from "../screens/Homescreen";
 import ModulesSelectionScreen from "../screens/ModulesSelectionScreen";
 import AnnouncementScreen from "../screens/AnnouncementScreen";
+import Login from "../screens/Login"
 import TBD from "../screens/TBD";
 
 import Colors from "../constants/Colors";
@@ -53,6 +54,19 @@ const ModulesSelectionNavigation = createStackNavigator(
 const MainNavigator = createDrawerNavigator({
   Schedule: HomepageNavigation,
   ModulesSelection: ModulesSelectionNavigation,
+  'Log Out': Login
 });
 
-export default createAppContainer(MainNavigator);
+const LoginNavigator = createStackNavigator(
+  {
+    Login: Login, 
+    MainScreen: MainNavigator
+  }, 
+  {
+    defaultNavigationOptions: {
+      headerShown: false
+    }
+  }
+);
+
+export default createAppContainer(LoginNavigator);
