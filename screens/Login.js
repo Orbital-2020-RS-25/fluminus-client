@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, TextInput, StyleSheet, Keyboard, KeyboardAvoidingView, Image, TouchableWithoutFeedback} from 'react-native'
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
+import AsyncStorage from '@react-native-community/async-storage';
 
 import Loader from '../components/Loader.js'
-import {login_url} from '../constants/URLs.js'
+import {login_url, profile_url} from '../constants/URLs.js'
 
 const styles = StyleSheet.create({
     container: {
@@ -37,6 +36,10 @@ const styles = StyleSheet.create({
         alignItems: "center", 
         justifyContent: "center"
     }, 
+    loggedOut: {
+        color: 'green', 
+        fontSize: 16
+    },
     button: {
         //zIndex: 1,
         flex: 0.5, 
@@ -53,6 +56,13 @@ const styles = StyleSheet.create({
         fontSize: 16
     }
 })
+const storeData = async (key, value) => {
+    try {
+      await AsyncStorage.setItem(key, value);
+    } catch (e) {
+      console.error(e);
+    }
+}
 
 export default class Login extends Component {
     constructor(props) {
@@ -70,8 +80,6 @@ export default class Login extends Component {
     clearText(fieldName) {
         this.refs[fieldName].setNativeProps({text: ''});
     }
-
-    test = () => {console.log("hi")}
 
     /**
      * Logs user in by sending POST request to heroku server with user credentials, getting JWT token 
@@ -153,6 +161,22 @@ export default class Login extends Component {
                                     this.clearText('passBox');
                                     this.login(() => {
                                         if (this.state.loggedIn) {
+                                            storeData("id", this.state.id);
+                                            storeData("token", this.state.token);
+                                            if (this.state.id !== 'test') {
+                                                fetch(profile_url + this.state.id, {
+                                                    method : "GET",
+                                                    //redirect : "follow"
+                                                })
+                                                .then(response => response.json())
+                                                .then(result => {
+                                                    console.log(result);
+                                                    storeData('profile', JSON.stringify(result.data));
+                                                    let mods = Object.keys(result.data.mods);
+                                                    storeData('mods', JSON.stringify(mods));
+                                                    })
+                                                .catch(error => console.error(error));
+                                            }
                                             this.props.navigation.navigate('MainScreen');
                                         }
                                     })}}>

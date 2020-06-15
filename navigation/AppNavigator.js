@@ -7,11 +7,13 @@ import { createDrawerNavigator } from "react-navigation-drawer";
 import Homescreen from "../screens/Homescreen";
 import ModulesSelectionScreen from "../screens/ModulesSelectionScreen";
 import AnnouncementScreen from "../screens/AnnouncementScreen";
-import Login from "../screens/Login"
+import Login from "../screens/Login";
 import TBD from "../screens/TBD";
+import Logout from "../screens/Logout";
+//import DrawerMenu from "./DrawerMenu.js"
 
 import Colors from "../constants/Colors";
-
+import { SCHEDULEITEMS } from "../data/dummy-data";
 const HomepageNavigation = createStackNavigator(
   {
     Home: Homescreen,
@@ -54,8 +56,9 @@ const ModulesSelectionNavigation = createStackNavigator(
 const MainNavigator = createDrawerNavigator({
   Schedule: HomepageNavigation,
   ModulesSelection: ModulesSelectionNavigation,
-  'Log Out': Login
-});
+  'Log Out': Logout
+  }
+);
 
 const LoginNavigator = createStackNavigator(
   {
