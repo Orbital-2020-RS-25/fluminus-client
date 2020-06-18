@@ -1,13 +1,14 @@
 import React, {Component} from "react";
-import { FlatList, StyleSheet } from "react-native";
+import { FlatList, StyleSheet, View, Text } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import ModuleGridTile from "../components/ModuleGridTile";
 import { SCHEDULEITEMS } from "../data/dummy-data";
 import HeaderButton from "../components/HeaderButton";
-import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import { Card } from 'react-native-elements'
 import AsyncStorage from "@react-native-community/async-storage";
 import Loader from "../components/Loader";
+import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 
 const ModulesSelectionScreenOld = (props) => {
   const renderGridItem = (itemData) => {
@@ -52,7 +53,6 @@ const ModulesSelectionScreen = (props) => {
   )
 }*/
 
-
 class ModulesSelectionScreen extends Component {
   constructor(props){
     super(props);
@@ -72,24 +72,35 @@ class ModulesSelectionScreen extends Component {
                 })
                 .catch(e => console.error(e));
   }
-
+ list_item = ({ item }) => {
+    return (
+      <ScrollView>
+          <Card style={{flex : 1, height : '20%'}}>
+            <TouchableOpacity
+              onPress={() => {
+                        this.props.navigation.navigate({
+                            routeName: "Announcement",
+                            params: {
+                              moduleId: item
+                            }
+                        })
+                      }} >
+              <Text style={styles.mod_label}>{item}</Text>
+            </TouchableOpacity>
+          </Card>
+      </ScrollView>
+    )
+  }
   render() {
     if (this.state.isLoading) {
       return <Loader loading={this.state.isLoading} />
     } else {
       return (
-        <Card containerStyle={{padding : 0}} >
-        {
-          this.state.mod_list.map((x, i) => {
-            return (
-              <ListItem
-                key={i}
-                title={x}
-              />
-            );
-          })
-        }
-        </Card>
+        <FlatList 
+          data={this.state.mod_list} 
+          renderItem={this.list_item} 
+          keyExtractor={(item, index) => index.toString()}
+          />
       )
     }
   }
@@ -130,6 +141,11 @@ ModulesSelectionScreen.navigationOptions = (navigationData) => {
   };
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mod_label : {
+    color: 'black',
+    fontSize: 20
+  }
+});
 
 export default ModulesSelectionScreen;

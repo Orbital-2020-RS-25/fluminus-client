@@ -86,18 +86,18 @@ export default class Login extends Component {
      * from server. Loading animation is set to visible at start, invisible at the end. 
      */
     login(login_callback) {
-        console.log(this.state);
+        //console.log(this.state);
         if (this.state.id === 'test' && this.state.password === 'test') {
             this.setState({loading : false});
             this.setState({loggedIn : true}, () => {
-                console.log(this.state);
+                //console.log(this.state);
                 login_callback();
             });
             //console.log(this.state); 
         } else {
             this.setState({loading : true});
-            var headers = {"Content-Type" : "application/json"};
-            var body = JSON.stringify({
+            const headers = {"Content-Type" : "application/json"};
+            const body = JSON.stringify({
                 "userName" : this.state.id,
                 "password" : this.state.password
             });
@@ -109,7 +109,7 @@ export default class Login extends Component {
             .then(response => response.json())
             .then(result => { 
                 //console.log(result);
-                this.setState({token : result.data.jwt});
+                this.setState({token : JSON.stringify(result.data)});
                 this.setState({loggedIn : result.status}, () => {
                     //console.log(this.state); 
                     login_callback();
@@ -170,7 +170,7 @@ export default class Login extends Component {
                                                 })
                                                 .then(response => response.json())
                                                 .then(result => {
-                                                    console.log(result);
+                                                    //console.log(result);
                                                     storeData('profile', JSON.stringify(result.data));
                                                     let mods = Object.keys(result.data.mods);
                                                     storeData('mods', JSON.stringify(mods));
