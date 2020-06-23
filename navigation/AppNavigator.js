@@ -8,12 +8,16 @@ import Homescreen from "../screens/Homescreen";
 import ModulesSelectionScreen from "../screens/ModulesSelectionScreen";
 import AnnouncementScreen from "../screens/AnnouncementScreen";
 import Login from "../screens/Login";
+import FileScreen from "../screens/FileScreen";
+import GradeScreen from "../screens/GradeScreen";
+import MediaScreen from "../screens/MediaScreen";
+import FriendScreen from "../screens/FriendScreen";
 import TBD from "../screens/TBD";
 import Logout from "../screens/Logout";
 //import DrawerMenu from "./DrawerMenu.js"
 
 import Colors from "../constants/Colors";
-import { SCHEDULEITEMS } from "../data/dummy-data";
+
 const HomepageNavigation = createStackNavigator(
   {
     Home: Homescreen,
@@ -32,9 +36,9 @@ const HomepageNavigation = createStackNavigator(
 
 const ModuleInfoNavigation = createBottomTabNavigator({
   Announcements: AnnouncementScreen,
-  Files: TBD,
-  Media: TBD,
-  Grade: TBD,
+  Files: FileScreen,
+  Media: MediaScreen,
+  Grade: GradeScreen,
 });
 
 const ModulesSelectionNavigation = createStackNavigator(
@@ -53,22 +57,36 @@ const ModulesSelectionNavigation = createStackNavigator(
   }
 );
 
+const FriendsNavigation = createStackNavigator(
+  {
+    Friends: FriendScreen,
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: Platform.OS === "android" ? Colors.primaryColour : "",
+      },
+      headerTintColor:
+        Platform.OS === "android" ? "white" : Colors.primaryColour,
+    },
+  }
+);
 const MainNavigator = createDrawerNavigator({
   Schedule: HomepageNavigation,
   ModulesSelection: ModulesSelectionNavigation,
-  'Log Out': Logout
-  }
-);
+  Friends: FriendsNavigation,
+  "Log Out": Logout,
+});
 
 const LoginNavigator = createStackNavigator(
   {
-    Login: Login, 
-    MainScreen: MainNavigator
-  }, 
+    Login: Login,
+    MainScreen: MainNavigator,
+  },
   {
     defaultNavigationOptions: {
-      headerShown: false
-    }
+      headerShown: false,
+    },
   }
 );
 

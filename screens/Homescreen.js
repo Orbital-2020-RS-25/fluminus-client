@@ -41,24 +41,6 @@ Homescreen.navigationOptions = (navigationData) => {
         />
       </HeaderButtons>
     ),
-    headerRight: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          title="Add"
-          iconName="md-person-add"
-          onPress={() => {
-            navigationData.navigation.navigate("TBD");
-          }}
-        />
-        <Item
-          title="More"
-          iconName="md-more"
-          onPress={() => {
-            navigationData.navigation.navigate("TBD");
-          }}
-        />
-      </HeaderButtons>
-    ),
   };
 };
 
