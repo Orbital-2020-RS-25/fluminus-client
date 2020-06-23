@@ -87,14 +87,14 @@ export default class Login extends Component {
      */
     login(login_callback) {
         //console.log(this.state);
-        if (this.state.id === 'test' && this.state.password === 'test') {
+        /*if (this.state.id === 'test' && this.state.password === 'test') {
             this.setState({loading : false});
             this.setState({loggedIn : true}, () => {
                 //console.log(this.state);
                 login_callback();
             });
             //console.log(this.state); 
-        } else {
+        } else {*/
             this.setState({loading : true});
             const headers = {"Content-Type" : "application/json"};
             const body = JSON.stringify({
@@ -120,7 +120,7 @@ export default class Login extends Component {
                 console.error(error);
             })
             //Alert.alert(this.state.token);
-        }
+        //}
     }
 
     render() {
@@ -163,20 +163,20 @@ export default class Login extends Component {
                                         if (this.state.loggedIn) {
                                             storeData("id", this.state.id);
                                             storeData("token", this.state.token);
-                                            if (this.state.id !== 'test') {
-                                                fetch(profile_url + this.state.id, {
-                                                    method : "GET",
-                                                    //redirect : "follow"
+                                            //if (this.state.id !== 'test') {
+                                            fetch(profile_url + this.state.id, {
+                                                method : "GET",
+                                                //redirect : "follow"
+                                            })
+                                            .then(response => response.json())
+                                            .then(result => {
+                                                //console.log(result);
+                                                storeData('profile', JSON.stringify(result.data));
+                                                let mods = Object.keys(result.data.mods);
+                                                storeData('mods', JSON.stringify(mods));
                                                 })
-                                                .then(response => response.json())
-                                                .then(result => {
-                                                    //console.log(result);
-                                                    storeData('profile', JSON.stringify(result.data));
-                                                    let mods = Object.keys(result.data.mods);
-                                                    storeData('mods', JSON.stringify(mods));
-                                                    })
-                                                .catch(error => console.error(error));
-                                            }
+                                            .catch(error => console.error(error));
+                                            //}
                                             this.props.navigation.navigate('MainScreen');
                                         }
                                     })}}>

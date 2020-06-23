@@ -10,6 +10,7 @@ import AnnouncementScreen from "../screens/AnnouncementScreen";
 import Login from "../screens/Login";
 import TBD from "../screens/TBD";
 import Logout from "../screens/Logout";
+import FriendScreen from "../screens/Friends"
 //import DrawerMenu from "./DrawerMenu.js"
 
 import Colors from "../constants/Colors";
@@ -55,7 +56,8 @@ const ModulesSelectionNavigation = createStackNavigator(
 
 const MainNavigator = createDrawerNavigator({
   Schedule: HomepageNavigation,
-  ModulesSelection: ModulesSelectionNavigation,
+  Modules: ModulesSelectionNavigation,
+  Friends: FriendScreen, 
   'Log Out': Logout
   }
 );
