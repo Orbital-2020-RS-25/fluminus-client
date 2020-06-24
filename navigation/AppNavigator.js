@@ -14,6 +14,7 @@ import MediaScreen from "../screens/MediaScreen";
 import FriendScreen from "../screens/FriendScreen";
 import TBD from "../screens/TBD";
 import Logout from "../screens/Logout";
+import FriendScreen from "../screens/Friends"
 //import DrawerMenu from "./DrawerMenu.js"
 
 import Colors from "../constants/Colors";
