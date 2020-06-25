@@ -3,8 +3,6 @@ import { View, Text, StyleSheet } from "react-native";
 
 import HeaderButton from "../components/HeaderButton";
 
-import Colors from "../constants/Colors";
-
 const GradeScreen = (props) => {
   return (
     <View style={styles.gradeBox}>

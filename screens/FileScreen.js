@@ -22,7 +22,7 @@ const FileScreen = (props) => {
 
 FileScreen.navigationOptions = (navigationData) => {
   return {
-    headerTitle: "May",
+    headerTitle: "Files",
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
