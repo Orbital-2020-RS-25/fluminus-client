@@ -14,7 +14,6 @@ import MediaScreen from "../screens/MediaScreen";
 import FriendScreen from "../screens/FriendScreen";
 import TBD from "../screens/TBD";
 import Logout from "../screens/Logout";
-//import DrawerMenu from "./DrawerMenu.js"
 
 import Colors from "../constants/Colors";
 
@@ -34,17 +33,15 @@ const HomepageNavigation = createStackNavigator(
   }
 );
 
-const ModuleInfoNavigation = createBottomTabNavigator({
-  Announcements: AnnouncementScreen,
-  Files: FileScreen,
-  Media: MediaScreen,
-  Grade: GradeScreen,
-});
-
 const ModulesSelectionNavigation = createStackNavigator(
   {
     ModulesSelection: ModulesSelectionScreen,
-    Announcement: ModuleInfoNavigation,
+    Announcement: createBottomTabNavigator({
+      Announcements: AnnouncementScreen,
+      Files: FileScreen,
+      Media: MediaScreen,
+      Grade: GradeScreen,
+    }),
   },
   {
     defaultNavigationOptions: {
@@ -71,9 +68,10 @@ const FriendsNavigation = createStackNavigator(
     },
   }
 );
+
 const MainNavigator = createDrawerNavigator({
   Schedule: HomepageNavigation,
-  ModulesSelection: ModulesSelectionNavigation,
+  Modules: ModulesSelectionNavigation,
   Friends: FriendsNavigation,
   "Log Out": Logout,
 });
