@@ -18,7 +18,7 @@ const ModulesSelectionScreenOld = (props) => {
         color={itemData.item.color}
         onSelect={() => {
           props.navigation.navigate({
-            routeName: "Announcement",
+            routeName: "Announcements",
             params: {
               moduleId: itemData.item.title,
             },
@@ -79,7 +79,7 @@ class ModulesSelectionScreen extends Component {
           <TouchableOpacity
             onPress={() => {
               this.props.navigation.navigate({
-                routeName: "Announcement",
+                routeName: "Announcements",
                 params: {
                   moduleId: item,
                 },

@@ -13,6 +13,7 @@ import {
 import AsyncStorage from "@react-native-community/async-storage";
 
 import Loader from "../components/Loader.js";
+import get_date from '../constants/Weeks';
 import { login_url, profile_url } from "../constants/URLs.js";
 
 const styles = StyleSheet.create({
@@ -169,25 +170,73 @@ export default class Login extends Component {
             <View style={styles.rowFlexContainer}>
               <TouchableOpacity
                 style={styles.button}
+                //what happens when login button is pressed
                 onPress={() => {
                   Keyboard.dismiss();
                   this.clearText("idBox");
                   this.clearText("passBox");
-                  this.login(() => {
+                  this.login(() => { 
+                    //callback that is executed after the fetch is done
+                    //already has token at this stage
                     if (this.state.loggedIn) {
+                      //store to asyncStorage
                       storeData("id", this.state.id);
                       storeData("token", this.state.token);
                       //if (this.state.id !== 'test') {
+                      //calls user profile page
                       fetch(profile_url + this.state.id, {
                         method: "GET",
                         //redirect : "follow"
                       })
                         .then((response) => response.json())
                         .then((result) => {
-                          //console.log(result);
+                          let mod_info = result.data.mods;
                           storeData("profile", JSON.stringify(result.data));
-                          let mods = Object.keys(result.data.mods);
+                          let mods = Object.keys(mod_info);
                           storeData("mods", JSON.stringify(mods));
+                          //creates calendar
+                          let classes = [];
+                          for (let mod in mod_info) {
+                            let lessons = mod_info[mod].class_grps;
+                            //console.log(lessons)
+                            //lessons is ARRAY of JSON objects of lessons
+                            let number_of_classes = lessons.length;
+                            //console.log(number_of_classes)
+                            //console.log(lessons);
+                            for (let i = 0; i < number_of_classes; i++) {
+                              //console.log("HIHIHIHIHI")
+                              //console.log(lessons[i])
+                              let lesson_specific_info = lessons[i].timing[0];
+                              let day = lesson_specific_info.day;
+                              let start = lesson_specific_info.startTime;
+                              let end = lesson_specific_info.endTime;
+                              let lessonType = lessons[i].lessonType;
+                              let venue = lesson_specific_info.venue;
+                              //console.log(lessonType)
+                              let week_num = lesson_specific_info.weeks;
+                              //console.log(venue)
+                              //console.log(week_num);
+                              for (let j = 0; j < week_num.length; j++) {
+                                console.log(day)
+                                let [startTime, endTime] = get_date(week_num[j], day, start, end);
+                                let classInfo = {
+                                  start: startTime, 
+                                  end: endTime, 
+                                  code: mod, 
+                                  lessonType: lessonType, 
+                                  venue: venue
+                                };
+                                //console.log("HIHIHIHIHI")
+                                //console.log(classInfo)
+                                classes.push(classInfo);
+                              }
+                            }
+                          }
+                          return classes;
+                        })
+                        .then((classes) => {
+                          storeData("timetable", JSON.stringify(classes));
+                          console.log(classes.length);
                         })
                         .catch((error) => console.error(error));
                       //}

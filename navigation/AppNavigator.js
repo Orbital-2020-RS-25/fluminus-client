@@ -14,7 +14,7 @@ import MediaScreen from "../screens/MediaScreen";
 import FriendScreen from "../screens/FriendScreen";
 import TBD from "../screens/TBD";
 import Logout from "../screens/Logout";
-import FriendScreen from "../screens/Friends"
+//import FriendScreen from "../screens/Friends"
 //import DrawerMenu from "./DrawerMenu.js"
 
 import Colors from "../constants/Colors";
@@ -36,16 +36,35 @@ const HomepageNavigation = createStackNavigator(
 );
 
 const ModuleInfoNavigation = createBottomTabNavigator({
-  Announcements: AnnouncementScreen,
-  Files: FileScreen,
-  Media: MediaScreen,
-  Grade: GradeScreen,
+  Announcements: { 
+    screen: AnnouncementScreen,
+    navigationOptions: { title: 'Announcements'}
+  },
+  Files: {
+    screen: FileScreen, 
+    navigationOptions: { title: 'Files'}
+  },
+  Media: {
+    screen: MediaScreen, 
+    navigationOptions: { title: 'Media'}
+  },
+  Grade: {
+    screen: GradeScreen, 
+    navigationOptions: { title: 'Grades'}
+  },
 });
+
+/*const ModuleNavigator = createStackNavigator({
+  ModuleInfoNavigation: {
+    navigationOptions: { title: 'abc'}
+  }
+})*/
+const FileInfoNavigation = ModuleInfoNavigation;
 
 const ModulesSelectionNavigation = createStackNavigator(
   {
     ModulesSelection: ModulesSelectionScreen,
-    Announcement: ModuleInfoNavigation,
+    Announcements: ModuleInfoNavigation,
   },
   {
     defaultNavigationOptions: {
@@ -78,6 +97,27 @@ const MainNavigator = createDrawerNavigator({
   Friends: FriendsNavigation,
   "Log Out": Logout,
 });
+
+/*const ModuleNavigator = createStackNavigator(
+  ModuleInfoNavigation, {
+    initialRouteName: 'Announcements', 
+    navigationOptions: ({ navigation }) => {
+      const { routeName } = navigation.state;
+      let name;
+      if (routeName === 'Announcements') {
+        name = 'Announcements';
+        return 
+      } else if (routeName === 'Files') {
+        name = 'Files';
+      } else if (routeName === 'Media') {
+        name = 'Media';
+      } else if (routeName === 'Grade') {
+        name = 'Grades';
+      }
+      title: name
+    }
+  }
+)*/
 
 const LoginNavigator = createStackNavigator(
   {
