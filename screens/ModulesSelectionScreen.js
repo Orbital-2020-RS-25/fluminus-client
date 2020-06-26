@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FlatList, StyleSheet, View, Text } from "react-native";
+import { FlatList, StyleSheet, Text } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
 import ModuleGridTile from "../components/ModuleGridTile";
@@ -79,7 +79,7 @@ class ModulesSelectionScreen extends Component {
           <TouchableOpacity
             onPress={() => {
               this.props.navigation.navigate({
-                routeName: "Announcement",
+                routeName: "Module info",
                 params: {
                   moduleId: item,
                 },
