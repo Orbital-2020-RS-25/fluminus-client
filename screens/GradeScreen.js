@@ -1,8 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-import HeaderButton from "../components/HeaderButton";
-
 const GradeScreen = (props) => {
   return (
     <View style={styles.gradeBox}>
@@ -14,17 +12,6 @@ const GradeScreen = (props) => {
 GradeScreen.navigationOptions = (navigationData) => {
   return {
     headerTitle: "May",
-    headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          title="Menu"
-          iconName="ios-menu"
-          onPress={() => {
-            navigationData.navigation.toggleDrawer();
-          }}
-        />
-      </HeaderButtons>
-    ),
   };
 };
 

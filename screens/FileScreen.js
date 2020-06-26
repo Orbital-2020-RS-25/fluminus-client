@@ -4,7 +4,6 @@ import { FlatList } from "react-native-gesture-handler";
 
 import { FILEITEM } from "../data/dummy-data";
 import FileGridTile from "../components/FileGridTile";
-import HeaderButton from "../components/HeaderButton";
 
 import Colors from "../constants/Colors";
 
@@ -23,17 +22,6 @@ const FileScreen = (props) => {
 FileScreen.navigationOptions = (navigationData) => {
   return {
     headerTitle: "Files",
-    headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          title="Menu"
-          iconName="ios-menu"
-          onPress={() => {
-            navigationData.navigation.toggleDrawer();
-          }}
-        />
-      </HeaderButtons>
-    ),
   };
 };
 

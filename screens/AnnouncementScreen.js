@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
 import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Card } from "react-native-elements";
 
-import HeaderButton from "../components/HeaderButton";
 import { announcement_url } from "../constants/URLs";
 import Loader from "../components/Loader";
 
@@ -78,17 +76,6 @@ AnnouncementScreen.navigationOptions = (navigationData) => {
 
   return {
     headerTitle: moduleId,
-    headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          title="Menu"
-          iconName="ios-menu"
-          onPress={() => {
-            navigationData.navigation.toggleDrawer();
-          }}
-        />
-      </HeaderButtons>
-    ),
   };
 };
 

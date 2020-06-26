@@ -1,9 +1,12 @@
+import React from "react";
 import { Platform } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createDrawerNavigator } from "react-navigation-drawer";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
+import HeaderButton from "../components/HeaderButton";
 import Homescreen from "../screens/Homescreen";
 import ModulesSelectionScreen from "../screens/ModulesSelectionScreen";
 import AnnouncementScreen from "../screens/AnnouncementScreen";
@@ -33,15 +36,19 @@ const HomepageNavigation = createStackNavigator(
   }
 );
 
+const ModuleNavigator = createBottomTabNavigator(
+  {
+    Announcements: AnnouncementScreen,
+    Files: FileScreen,
+    Media: MediaScreen,
+    Grade: GradeScreen,
+  }
+);
+
 const ModulesSelectionNavigation = createStackNavigator(
   {
     ModulesSelection: ModulesSelectionScreen,
-    Announcement: createBottomTabNavigator({
-      Announcements: AnnouncementScreen,
-      Files: FileScreen,
-      Media: MediaScreen,
-      Grade: GradeScreen,
-    }),
+    "Module info": ModuleNavigator,
   },
   {
     defaultNavigationOptions: {
