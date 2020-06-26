@@ -1,8 +1,10 @@
+import React from "react";
 import { Platform } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createDrawerNavigator } from "react-navigation-drawer";
+import { Ionicons } from "@expo/vector-icons";
 
 import Homescreen from "../screens/Homescreen";
 import ModulesSelectionScreen from "../screens/ModulesSelectionScreen";
@@ -29,17 +31,62 @@ const HomepageNavigation = createStackNavigator(
         backgroundColor: Platform.OS === "android" ? Colors.primaryColour : "",
       },
       headerTintColor:
-        Platform.OS === "android" ? "white" : Colors.primaryColour,
+        Platform.OS === "android" ? Colors.accentColour : Colors.primaryColour,
     },
   }
 );
 
 const ModuleNavigator = createBottomTabNavigator(
   {
-    Announcements: AnnouncementScreen,
-    Files: FolderScreen,
-    Media: MediaScreen,
-    Grade: GradeScreen,
+    Announcements: {
+      screen: AnnouncementScreen,
+      navigationOptions: {
+        tabBarIcon: (tabInfo) => {
+          return (
+            <Ionicons name="ios-notifications" size={25} color={tabInfo.tintColor} />
+          );
+        },
+      },
+    },
+    Files: {
+      screen: FolderScreen,
+      navigationOptions: {
+        tabBarIcon: (tabInfo) => {
+          return (
+            <Ionicons name="md-document" size={25} color={tabInfo.tintColor} />
+          );
+        },
+      },
+    },
+    Media: {
+      screen: MediaScreen,
+      navigationOptions: {
+        tabBarIcon: (tabInfo) => {
+          return (
+            <Ionicons name="md-play" size={25} color={tabInfo.tintColor} />
+          );
+        },
+      },
+    },
+    Grade: {
+      screen: GradeScreen,
+      navigationOptions: {
+        tabBarIcon: (tabInfo) => {
+          return (
+            <Ionicons name="ios-podium" size={25} color={tabInfo.tintColor} />
+          );
+        },
+      },
+    },
+  },
+  {
+    tabBarOptions: {
+      tabStyle: {
+        backgroundColor: Platform.OS === "android" ? Colors.primaryColour : "",
+      },
+      activeTintColor:
+        Platform.OS === "android" ? Colors.accentColour : Colors.primaryColour,
+    },
   }
 );
 
@@ -54,7 +101,7 @@ const ModulesSelectionNavigation = createStackNavigator(
         backgroundColor: Platform.OS === "android" ? Colors.primaryColour : "",
       },
       headerTintColor:
-        Platform.OS === "android" ? "white" : Colors.primaryColour,
+        Platform.OS === "android" ? Colors.accentColour : Colors.primaryColour,
     },
   }
 );
@@ -69,7 +116,7 @@ const FriendsNavigation = createStackNavigator(
         backgroundColor: Platform.OS === "android" ? Colors.primaryColour : "",
       },
       headerTintColor:
-        Platform.OS === "android" ? "white" : Colors.primaryColour,
+        Platform.OS === "android" ? Colors.accentColour : Colors.primaryColour,
     },
   }
 );
