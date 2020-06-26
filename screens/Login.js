@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
 const storeData = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, value);
@@ -162,20 +163,16 @@ export default class Login extends Component {
                     if (this.state.loggedIn) {
                       storeData("id", this.state.id);
                       storeData("token", this.state.token);
-                      //if (this.state.id !== 'test') {
                       fetch(profile_url + this.state.id, {
                         method: "GET",
-                        //redirect : "follow"
                       })
                         .then((response) => response.json())
                         .then((result) => {
-                          //console.log(result);
                           storeData("profile", JSON.stringify(result.data));
                           let mods = Object.keys(result.data.mods);
                           storeData("mods", JSON.stringify(mods));
                         })
                         .catch((error) => console.error(error));
-                      //}
                       this.props.navigation.navigate("MainScreen");
                     }
                   });
