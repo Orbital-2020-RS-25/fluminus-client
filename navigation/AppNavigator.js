@@ -1,22 +1,20 @@
-import React from "react";
 import { Platform } from "react-native";
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createDrawerNavigator } from "react-navigation-drawer";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import HeaderButton from "../components/HeaderButton";
 import Homescreen from "../screens/Homescreen";
 import ModulesSelectionScreen from "../screens/ModulesSelectionScreen";
 import AnnouncementScreen from "../screens/AnnouncementScreen";
 import Login from "../screens/Login";
+import FolderScreen from "../screens/FolderScreen";
 import FileScreen from "../screens/FileScreen";
 import GradeScreen from "../screens/GradeScreen";
 import MediaScreen from "../screens/MediaScreen";
 import FriendScreen from "../screens/FriendScreen";
-import TBD from "../screens/TBD";
 import Logout from "../screens/Logout";
+import TBD from "../screens/TBD";
 
 import Colors from "../constants/Colors";
 
@@ -39,7 +37,7 @@ const HomepageNavigation = createStackNavigator(
 const ModuleNavigator = createBottomTabNavigator(
   {
     Announcements: AnnouncementScreen,
-    Files: FileScreen,
+    Files: FolderScreen,
     Media: MediaScreen,
     Grade: GradeScreen,
   }
