@@ -7,6 +7,8 @@ import ScheduleItemTile from "../components/ScheduleItemTile";
 import HeaderButton from "../components/HeaderButton";
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import AsyncStorage from "@react-native-community/async-storage";
+import { Component } from "react";
+import Loader from "../components/Loader"
 
 const HomescreenOld= (props) => {
   const renderScheduleItem = (itemData) => {
@@ -29,45 +31,98 @@ const HomescreenOld= (props) => {
   return <FlatList data={SCHEDULEITEMS} renderItem={renderScheduleItem} />;
 };
 
-const example = () => Calendar({
-  day: 25, 
-  month: 6, 
-  year: 2020, 
-  //timestamp
-  dateString: '2020-06-25'
-})
-const dailyData = () => {
-  return {'2020-06-24': [
-    {name: "example", start:"2020-06-25 10:00", end: "2020-06-25 12:00"}], 
-    '2020-06-25': [{name: 'example2', start:"2020-06-25 13:00", end: "2020-06-25 14:00"}]};
-}
 
-const renderItem = (item, firstItemInDay) => {
-  console.log('rendering', item)
+const renderItem = (item, firstItemInDay) => {  
   return (
-    <TouchableOpacity style={{color: 'blue'}}>
-      <Text style={{color: 'black'}}>{Moment(item.start).format("hh:mm a")}</Text>
-      <Text style={{color: 'black'}}>{Moment(item.end).format("hh:mm a")}</Text>
-      <Text style={{color: 'grey'}}>{item.name}</Text>
+    <View style={{color: 'blue'}}>
+    <TouchableOpacity 
+      style={{flexDirection: "column", justifyContent: "center"}}>
+      <View style={{flexDirection: 'row'}}>
+        <Text style={{color: 'black', fontWeight: 'bold', marginRight: 5}}>{item.name.code}</Text>
+        <Text style={{color: 'grey'}}>{item.name.name}</Text>
+      </View>
+      <Text style={{color: 'black', fontWeight: "bold"}}>
+        {Moment(item.start).format("hh:mm")} - {Moment(item.end).format("hh:mm")}
+      </Text>
+      <Text style={{color: 'grey'}}>{item.name.venue}</Text>
     </TouchableOpacity>
+    </View>
   );
+  /*
+  return (
+    <View>
+      <Text>{item.name}</Text>
+    </View>
+  )*/
 } 
 /*
 <Text style={{color: '#555'}}>{item.code}</Text>
 */
-const Homescreen = (props) => {
-  async function getTimetable() {
-    return await JSON.parse(AsyncStorage.getItem('timetable'));
-  }
-  return (
-    <Agenda
-      items={dailyData()} 
-      renderItem={(item, firstItemInDay) => {return (renderItem(item, firstItemInDay));}}
-      renderEmptyData = {() => {return (<View />);}}
 
-      />
-  )
+const getTimetable = async () => { 
+  let timings = {};
+  await AsyncStorage.getItem('timetable')
+                    .then((results) => timings = JSON.parse(results))
+                    .error(e => console.error(e));
+  return timings;
 }
+class Homescreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {timetable: {}, loading: true};
+  }
+  timetable = this.props.navigation.getParam("timetable");
+  //console.log(timetable);
+  
+  componentDidMount() {
+    AsyncStorage.getItem("timetable")
+                .then((result) => {
+                  this.setState({
+                    timetable: JSON.parse(result), 
+                    loading: false});
+                })
+                .catch(e => console.error(e));
+  }
+
+  /*testItem = {
+  "2020-04-15": [
+      {
+        end: "2020-04-15T18:00:00",
+        name: "CS2100",
+        info: {
+            "code": "CS2100",
+            "lessonType": "Tutorial",
+            "name": "Computer Organisation",
+            "venue": "COM1-0114"
+        },
+        start: "2020-04-15T17:00:00"
+      }
+    ]
+  }*/
+
+  render() {
+    //console.log(this.timetable);
+    if (this.state.loading) {
+      return (
+        <Loader loading={this.state.loading} />
+      );
+    } else {
+      return (
+        <Agenda
+          items={this.state.timetable} 
+          renderItem={(item, firstItemInDay) => renderItem(item, firstItemInDay)}
+          renderEmptyData = {() => {return (<View />);}}
+          selected={'2020-04-07'}
+          minDate={'2020-01-01'}
+          maxDate={'2020-05-10'}
+          pastScrollRange={6}
+          futureScrollRange={6}
+          />
+      );
+    }
+  }
+}
+
 Homescreen.navigationOptions = (navigationData) => {
   return {
     headerTitle: "May",
