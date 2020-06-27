@@ -6,7 +6,7 @@ const MediaGridTile = (props) => {
     <View
       style={{ ...styles.FileBox, ...{ backgroundColor: props.color } }}
     >
-      <Text>This is an announcement</Text>
+      <Text>Media format to be decided</Text>
     </View>
   );
 };

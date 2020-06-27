@@ -7,20 +7,19 @@ import {
   Platform,
   TouchableNativeFeedback,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-const FriendGridTile = (props) => {
+const FolderGridTile = (props) => {
   let TouchableCmp = TouchableOpacity;
   if (Platform.OS == "android" && Platform.Version > 21) {
     TouchableCmp = TouchableNativeFeedback;
   }
 
   return (
-    <View style={styles.friendBox}>
-      <TouchableCmp style={{ flex: 1 }}>
-        <View
-          style={{ ...styles.container, ...{ backgroundColor: props.color } }}
-        >
-          <Text style={styles.name}>friend</Text>
+    <View style={styles.fileBox}>
+      <TouchableCmp style={{ flex: 1 }} onPress={props.onSelect}>
+        <View style={styles.container}>
+          <Text style={styles.name}>This is a folder</Text>
         </View>
       </TouchableCmp>
     </View>
@@ -28,30 +27,27 @@ const FriendGridTile = (props) => {
 };
 
 const styles = StyleSheet.create({
-  friendBox: {
+  fileBox: {
+    color: "grey",
     flex: 1,
     margin: 15,
-    height: 150,
+    height: 50,
     borderRadius: 10,
     overflow:
       Platform.OS === "android" && Platform.Version > 21 ? "hidden" : "visible",
-    elevation: 5,
   },
   container: {
+    color: "yellow",
     flex: 1,
     borderRadius: 10,
-    shadowColor: "black",
-    shadowOpacity: 0.26,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 10,
     padding: 15,
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    justifyContent: "center",
+    alignItems: "center",
   },
   name: {
     fontSize: 20,
-    textAlign: "right",
+    textAlign: "center",
   },
 });
 
-export default FriendGridTile;
+export default FolderGridTile;
