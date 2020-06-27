@@ -2,12 +2,12 @@ import React from "react";
 import { StyleSheet, FlatList } from "react-native";
 
 import { FOLDERITEM } from "../data/dummy-data";
-import FolderGridItem from "../components/FolderGridTile";
+import FolderGridTile from "../components/FolderGridTile";
 
 const FolderScreen = (props) => {
   const renderFolders = (itemData) => {
     return (
-      <FolderGridItem
+      <FolderGridTile
         onSelect={() => {
           props.navigation.navigate({ routeName: "FileSelection" });
         }}
