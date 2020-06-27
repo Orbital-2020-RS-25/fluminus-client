@@ -19,6 +19,7 @@ class ModulesSelectionScreen extends Component {
       isLoading: true,
     };
   }
+  
   componentDidMount() {
     AsyncStorage.getItem("mods")
       .then((results) => JSON.parse(results))
@@ -30,6 +31,7 @@ class ModulesSelectionScreen extends Component {
       })
       .catch((e) => console.error(e));
   }
+
   list_item = ({ item }) => {
     return (
       <ScrollView>
@@ -50,6 +52,7 @@ class ModulesSelectionScreen extends Component {
       </ScrollView>
     );
   };
+
   render() {
     if (this.state.isLoading) {
       return <Loader loading={this.state.isLoading} />;
