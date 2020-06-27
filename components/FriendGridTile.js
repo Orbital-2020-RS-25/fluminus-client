@@ -16,7 +16,7 @@ const FriendGridTile = (props) => {
 
   return (
     <View style={styles.friendBox}>
-      <TouchableCmp style={{ flex: 1 }}>
+      <TouchableCmp style={{ flex: 1 }} onPress={props.onSelect}>
         <View
           style={{ ...styles.container, ...{ backgroundColor: props.color } }}
         >

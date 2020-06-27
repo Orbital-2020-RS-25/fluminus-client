@@ -12,10 +12,10 @@ import AnnouncementScreen from "../screens/AnnouncementScreen";
 import Login from "../screens/Login";
 import FolderScreen from "../screens/FolderScreen";
 import FileScreen from "../screens/FileScreen";
-import GradeScreen from "../screens/GradeScreen";
 import MediaScreen from "../screens/MediaScreen";
 import FriendScreen from "../screens/FriendScreen";
 import Logout from "../screens/Logout";
+import AnnouncementInfoScreen from "../screens/AnnouncementInfoScreen";
 import TBD from "../screens/TBD";
 
 import Colors from "../constants/Colors";
@@ -23,7 +23,7 @@ import Colors from "../constants/Colors";
 const HomepageNavigation = createStackNavigator(
   {
     Home: Homescreen,
-    TBD: TBD,
+    "Announcement Info": AnnouncementInfoScreen,
   },
   {
     defaultNavigationOptions: {
@@ -72,16 +72,6 @@ const ModuleNavigator = createBottomTabNavigator(
         },
       },
     },
-    Grade: {
-      screen: GradeScreen,
-      navigationOptions: {
-        tabBarIcon: (tabInfo) => {
-          return (
-            <Ionicons name="ios-podium" size={25} color={tabInfo.tintColor} />
-          );
-        },
-      },
-    },
   },
   {
     tabBarOptions: {
@@ -114,6 +104,7 @@ const ModulesSelectionNavigation = createStackNavigator(
 const FriendsNavigation = createStackNavigator(
   {
     Friends: FriendScreen,
+    TBD: TBD,
   },
   {
     defaultNavigationOptions: {
@@ -126,12 +117,19 @@ const FriendsNavigation = createStackNavigator(
   }
 );
 
-const MainNavigator = createDrawerNavigator({
-  Schedule: HomepageNavigation,
-  Modules: ModulesSelectionNavigation,
-  Friends: FriendsNavigation,
-  "Log Out": Logout,
-});
+const MainNavigator = createDrawerNavigator(
+  {
+    Schedule: HomepageNavigation,
+    Modules: ModulesSelectionNavigation,
+    Friends: FriendsNavigation,
+    "Log Out": Logout,
+  },
+  {
+    contentOptions: {
+      activeTintColor: Colors.accentColour,
+    },
+  }
+);
 
 const LoginNavigator = createStackNavigator(
   {
