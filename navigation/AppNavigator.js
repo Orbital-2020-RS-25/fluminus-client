@@ -43,7 +43,11 @@ const ModuleNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: (tabInfo) => {
           return (
-            <Ionicons name="ios-notifications" size={25} color={tabInfo.tintColor} />
+            <Ionicons
+              name="ios-notifications"
+              size={25}
+              color={tabInfo.tintColor}
+            />
           );
         },
       },
@@ -94,6 +98,7 @@ const ModulesSelectionNavigation = createStackNavigator(
   {
     ModulesSelection: ModulesSelectionScreen,
     "Module info": ModuleNavigator,
+    FileSelection: FileScreen,
   },
   {
     defaultNavigationOptions: {

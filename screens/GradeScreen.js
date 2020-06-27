@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 const GradeScreen = (props) => {
   return (
     <View style={styles.gradeBox}>
-      <Text>Idk what to put here</Text>
+      <Text>Decide on layout</Text>
     </View>
   );
 };

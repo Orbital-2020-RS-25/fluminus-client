@@ -4,6 +4,7 @@ import AnnouncementItem from "../models/AnnouncementItem";
 import FileItem from "../models/FileItem";
 import MediaItem from "../models/MediaItem";
 import FriendItem from "../models/FriendItem";
+import FolderItem from "../models/FolderItem";
 
 export const SCHEDULEITEMS = [
   new ScheduleItem("c1", "CS1231s", "blue", "Hard"),
@@ -35,4 +36,9 @@ export const MEDIAITEM = [
 export const FRIENDITEM = [
   new FriendItem("c1", "Peter", "blue"),
   new FriendItem("c2", "X Æ A-12", "red"),
+];
+
+export const FOLDERITEM = [
+  new FolderItem("c1", "CS1231s", "Assignments"),
+  new FolderItem("c2", "CS1231s", "Lectures"),
 ];
