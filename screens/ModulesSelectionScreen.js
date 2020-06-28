@@ -8,7 +8,6 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Loader from "../components/Loader";
 import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 
-const mods = AsyncStorage.getItem("mods");
 const test_items = ["cs1010", "cs1231", "ma1101r"];
 
 class ModulesSelectionScreen extends Component {

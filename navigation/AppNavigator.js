@@ -15,10 +15,12 @@ import FileScreen from "../screens/FileScreen";
 import MediaScreen from "../screens/MediaScreen";
 import FriendScreen from "../screens/FriendScreen";
 import Logout from "../screens/Logout";
+
 import AnnouncementInfoScreen from "../screens/AnnouncementInfoScreen";
 import TBD from "../screens/TBD";
 
 import Colors from "../constants/Colors";
+import FolderScreen from "../screens/FolderScreen";
 
 const HomepageNavigation = createStackNavigator(
   {
@@ -84,6 +86,13 @@ const ModuleNavigator = createBottomTabNavigator(
   }
 );
 
+/*const ModuleNavigator = createStackNavigator({
+  ModuleInfoNavigation: {
+    navigationOptions: { title: 'abc'}
+  }
+})*/
+const FileInfoNavigation = ModuleInfoNavigation;
+
 const ModulesSelectionNavigation = createStackNavigator(
   {
     ModulesSelection: ModulesSelectionScreen,
@@ -129,6 +138,27 @@ const MainNavigator = createDrawerNavigator(
     },
   }
 );
+
+/*const ModuleNavigator = createStackNavigator(
+  ModuleInfoNavigation, {
+    initialRouteName: 'Announcements', 
+    navigationOptions: ({ navigation }) => {
+      const { routeName } = navigation.state;
+      let name;
+      if (routeName === 'Announcements') {
+        name = 'Announcements';
+        return 
+      } else if (routeName === 'Files') {
+        name = 'Files';
+      } else if (routeName === 'Media') {
+        name = 'Media';
+      } else if (routeName === 'Grade') {
+        name = 'Grades';
+      }
+      title: name
+    }
+  }
+)*/
 
 const LoginNavigator = createStackNavigator(
   {

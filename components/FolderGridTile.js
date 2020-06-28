@@ -14,7 +14,6 @@ const FolderGridTile = (props) => {
   if (Platform.OS == "android" && Platform.Version > 21) {
     TouchableCmp = TouchableNativeFeedback;
   }
-
   return (
     <View style={styles.fileBox}>
       <TouchableCmp style={{ flex: 1 }} onPress={props.onSelect}>

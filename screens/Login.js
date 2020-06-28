@@ -13,7 +13,9 @@ import {
 import AsyncStorage from "@react-native-community/async-storage";
 
 import Loader from "../components/Loader.js";
+import get_date from '../constants/Weeks';
 import { login_url, profile_url } from "../constants/URLs.js";
+import Homescreen from "../screens/Homescreen"
 
 const styles = StyleSheet.create({
   container: {
@@ -80,6 +82,7 @@ export default class Login extends Component {
       id: "",
       password: "",
       token: "",
+      timetable: {}, 
       loading: false,
       loggedIn: false,
     };
@@ -155,25 +158,51 @@ export default class Login extends Component {
             <View style={styles.rowFlexContainer}>
               <TouchableOpacity
                 style={styles.button}
+                //what happens when login button is pressed
                 onPress={() => {
                   Keyboard.dismiss();
                   this.clearText("idBox");
                   this.clearText("passBox");
-                  this.login(() => {
+                  console.log("button pressed");
+                  this.login(() => { 
+                    //callback that is executed after the fetch is done
+                    //already has token at this stage
+                    console.log("login fetched");
                     if (this.state.loggedIn) {
+                      //store to asyncStorage
                       storeData("id", this.state.id);
                       storeData("token", this.state.token);
+                      //calls user profile page
                       fetch(profile_url + this.state.id, {
                         method: "GET",
                       })
                         .then((response) => response.json())
                         .then((result) => {
+                          let mod_info = result.data.mods;
                           storeData("profile", JSON.stringify(result.data));
-                          let mods = Object.keys(result.data.mods);
+                          let mods = Object.keys(mod_info);
                           storeData("mods", JSON.stringify(mods));
+                          let timetable = result.data.timetable;
+                          this.setState({timetable: timetable});
+                          //console.log(timetable)
+                          //this.state.timetable = timetable;
+                          /*for (let timing in timetable) {
+                            for (let i = 0; i < timing.length; i++) {
+                              timing[i].name = timing[i].name.code
+                            }
+                          }*/
+                          storeData("timetable", JSON.stringify(timetable))
                         })
                         .catch((error) => console.error(error));
-                      this.props.navigation.navigate("MainScreen");
+                      //}
+                      //<Homescreen nusId={this.state.id} timetable={this.state.timetable} />
+                      this.props.navigation.navigate({
+                        routeName: "MainScreen", 
+                        params: {
+                          nusId: this.state.id, 
+                          timetable: this.state.timetable
+                        }
+                      });
                     }
                   });
                 }}
