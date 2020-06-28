@@ -11,6 +11,7 @@ class FolderScreen extends Component {
     this.state = {
       // folderName: "invalid",
       folder: [],
+      isLoading: true,
     };
   }
 
@@ -22,6 +23,8 @@ class FolderScreen extends Component {
             routeName: "FileSelection",
           });
         }}
+
+        name={itemData.item.name}
       />
     );
   };
@@ -40,27 +43,26 @@ class FolderScreen extends Component {
       })
       .then((result) => result.data)
       .then((data) => JSON.parse(JSON.parse(data)))
-      .then((folders) =>
-        // console.log(folders)
-        this.setState({ folder: folders })
-      );
+      .then((folders) => this.setState({ folder: folders.children, isLoading: false }));
   }
 
   componentDidMount() {
     this.getFolders();
-    console.log("help");
-    console.log(this.state.folder);
   }
 
   render() {
-    return (
-      <FlatList
-        data={this.state.folder}
-        renderItem={this.renderFolders}
-        numColumns="2"
-        keyExtractor={(item, index) => index.toString()}
-      />
-    );
+    if (this.state.isLoading) {
+      return <View><Text>loading</Text></View>;
+    } else {
+      return (
+        <FlatList
+          data={this.state.folder}
+          renderItem={this.renderFolders}
+          numColumns="2"
+          keyExtractor={(item, index) => index.toString()}
+        />
+      );
+    }
   }
 }
 
