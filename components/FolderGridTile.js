@@ -20,8 +20,10 @@ const FolderGridTile = (props) => {
       <TouchableCmp style={{ flex: 1 }} onPress={props.onSelect}>
         <View style={styles.container}>
           <Ionicons name="md-folder" size={25} />
-          <Text>  </Text>
-          <Text style={styles.name}>This is a folder</Text>
+          <Text> </Text>
+          <Text style={styles.name} numberOfLines={1}>
+            {props.name}
+          </Text>
         </View>
       </TouchableCmp>
     </View>
@@ -44,12 +46,11 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 10,
     padding: 15,
-    justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-end",
   },
   name: {
     fontSize: 20,
-    textAlign: "center",
+    textAlign: "left",
   },
 });
 
