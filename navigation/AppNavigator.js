@@ -18,6 +18,7 @@ import Logout from "../screens/Logout";
 //import DrawerMenu from "./DrawerMenu.js"
 
 import Colors from "../constants/Colors";
+import FolderScreen from "../screens/FolderScreen";
 
 const HomepageNavigation = createStackNavigator(
   {
@@ -41,7 +42,7 @@ const ModuleInfoNavigation = createBottomTabNavigator({
     navigationOptions: { title: 'Announcements'}
   },
   Files: {
-    screen: FileScreen, 
+    screen: FolderScreen, 
     navigationOptions: { title: 'Files'}
   },
   Media: {

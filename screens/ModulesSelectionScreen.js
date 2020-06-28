@@ -10,30 +10,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Loader from "../components/Loader";
 import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 
-const ModulesSelectionScreenOld = (props) => {
-  const renderGridItem = (itemData) => {
-    return (
-      <ModuleGridTile
-        code={itemData.item.title}
-        color={itemData.item.color}
-        onSelect={() => {
-          props.navigation.navigate({
-            routeName: "Announcements",
-            params: {
-              moduleId: itemData.item.title,
-            },
-          });
-        }}
-      />
-    );
-  };
 
-  return (
-    <FlatList data={SCHEDULEITEMS} renderItem={renderGridItem} numColumns="2" />
-  );
-};
-
-const mods = AsyncStorage.getItem("mods");
 const test_items = ["cs1010", "cs1231", "ma1101r"];
 /*
 const ModulesSelectionScreen = (props) => {

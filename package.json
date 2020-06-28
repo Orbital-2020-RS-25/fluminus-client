@@ -30,6 +30,7 @@
     "react-navigation-header-buttons": "^4.0.2",
     "react-navigation-stack": "^2.5.1",
     "react-navigation-tabs": "^2.8.13",
+    "rnschedule": "0.0.5",
     "yarn.lock": "^0.0.1-security"
   },
   "devDependencies": {

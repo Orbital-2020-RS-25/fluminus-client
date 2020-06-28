@@ -107,6 +107,7 @@ export default class Login extends Component {
             });
             //console.log(this.state); 
         } else {*/
+    console.log("in login function, not in fetch");
     this.setState({ loading: true });
     const headers = { "Content-Type": "application/json" };
     const body = JSON.stringify({
@@ -120,10 +121,11 @@ export default class Login extends Component {
     })
       .then((response) => response.json())
       .then((result) => {
-        //console.log(result);
+        console.log(result);
+        console.log("in login fetch")
         this.setState({ token: JSON.stringify(result.data) });
         this.setState({ loggedIn: result.status }, () => {
-          //console.log(this.state);
+          console.log(this.state);
           login_callback();
         });
         this.setState({ loading: false });
@@ -177,9 +179,11 @@ export default class Login extends Component {
                   Keyboard.dismiss();
                   this.clearText("idBox");
                   this.clearText("passBox");
+                  console.log("button pressed");
                   this.login(() => { 
                     //callback that is executed after the fetch is done
                     //already has token at this stage
+                    console.log("login fetched");
                     if (this.state.loggedIn) {
                       //store to asyncStorage
                       storeData("id", this.state.id);
@@ -198,6 +202,7 @@ export default class Login extends Component {
                           storeData("mods", JSON.stringify(mods));
                           let timetable = result.data.timetable;
                           this.setState({timetable: timetable});
+                          //console.log(timetable)
                           //this.state.timetable = timetable;
                           /*for (let timing in timetable) {
                             for (let i = 0; i < timing.length; i++) {
