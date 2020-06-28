@@ -121,7 +121,6 @@ const MainNavigator = createDrawerNavigator(
   {
     Schedule: HomepageNavigation,
     Modules: ModulesSelectionNavigation,
-    Friends: FriendsNavigation,
     "Log Out": Logout,
   },
   {

@@ -23,7 +23,6 @@ class FolderScreen extends Component {
             routeName: "FileSelection",
           });
         }}
-
         name={itemData.item.name}
       />
     );
@@ -43,7 +42,9 @@ class FolderScreen extends Component {
       })
       .then((result) => result.data)
       .then((data) => JSON.parse(JSON.parse(data)))
-      .then((folders) => this.setState({ folder: folders.children, isLoading: false }));
+      .then((folders) =>
+        this.setState({ folder: folders.children, isLoading: false })
+      );
   }
 
   componentDidMount() {
@@ -52,7 +53,11 @@ class FolderScreen extends Component {
 
   render() {
     if (this.state.isLoading) {
-      return <View><Text>loading</Text></View>;
+      return (
+        <View>
+          <Text>loading</Text>
+        </View>
+      );
     } else {
       return (
         <FlatList
