@@ -1,34 +1,14 @@
 import React, { Component } from "react";
-import { FlatList, StyleSheet, View, Text } from "react-native";
+import { FlatList, StyleSheet, Text } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import ModuleGridTile from "../components/ModuleGridTile";
-import { SCHEDULEITEMS } from "../data/dummy-data";
 import HeaderButton from "../components/HeaderButton";
 import { Card } from "react-native-elements";
 import AsyncStorage from "@react-native-community/async-storage";
 import Loader from "../components/Loader";
 import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 
-
 const test_items = ["cs1010", "cs1231", "ma1101r"];
-/*
-const ModulesSelectionScreen = (props) => {
-  return (
-  <Card containerStyle={{padding : 0}} >
-  {
-    test_items.map((x, i) => {
-      return (
-        <ListItem
-          key={i}
-          title={x}
-          />
-      )
-    })
-  }
-  </Card>
-  )
-}*/
 
 class ModulesSelectionScreen extends Component {
   constructor(props) {
@@ -38,6 +18,7 @@ class ModulesSelectionScreen extends Component {
       isLoading: true,
     };
   }
+  
   componentDidMount() {
     AsyncStorage.getItem("mods")
       .then((results) => JSON.parse(results))
@@ -49,6 +30,7 @@ class ModulesSelectionScreen extends Component {
       })
       .catch((e) => console.error(e));
   }
+
   list_item = ({ item }) => {
     return (
       <ScrollView>
@@ -56,7 +38,7 @@ class ModulesSelectionScreen extends Component {
           <TouchableOpacity
             onPress={() => {
               this.props.navigation.navigate({
-                routeName: "Announcements",
+                routeName: "Module info",
                 params: {
                   moduleId: item,
                 },
@@ -69,6 +51,7 @@ class ModulesSelectionScreen extends Component {
       </ScrollView>
     );
   };
+
   render() {
     if (this.state.isLoading) {
       return <Loader loading={this.state.isLoading} />;

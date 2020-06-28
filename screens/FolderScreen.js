@@ -9,15 +9,13 @@ class FolderScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true, 
-      folderName: "invalid",
+      // folderName: "invalid",
       folder: [],
+      isLoading: true,
     };
   }
 
   renderFolders = (itemData) => {
-    console.log("HIHIHI");
-    console.log(itemData.item.name);
     return (
       <FolderGridTile
         onSelect={() => {
@@ -44,31 +42,26 @@ class FolderScreen extends Component {
       })
       .then((result) => result.data)
       .then((data) => JSON.parse(JSON.parse(data)))
-      .then((folders) => {
-      // console.log(folders)
-        this.setState({ folderName: folders.name, folder: folders, loading: false });
-        //console.log(this.state.folder);
-      })
-      .catch(error => console.error(error));
+      .then((folders) =>
+        this.setState({ folder: folders.children, isLoading: false })
+      );
   }
 
   componentDidMount() {
     this.getFolders();
-    console.log("help");
-    console.log(this.state.folder);
   }
 
   render() {
-    if (this.state.loading) {
+    if (this.state.isLoading) {
       return (
         <View>
-          <Text>Loading...</Text>
+          <Text>loading</Text>
         </View>
-      )
+      );
     } else {
       return (
         <FlatList
-          data={this.state.folder.children}
+          data={this.state.folder}
           renderItem={this.renderFolders}
           numColumns="2"
           keyExtractor={(item, index) => index.toString()}

@@ -4,7 +4,6 @@ import { FlatList } from "react-native-gesture-handler";
 
 import { MEDIAITEM } from "../data/dummy-data";
 import MediaGridTile from "../components/MediaGridTile";
-import HeaderButton from "../components/HeaderButton";
 
 import Colors from "../constants/Colors";
 
@@ -23,17 +22,6 @@ const MediaScreen = (props) => {
 MediaScreen.navigationOptions = (navigationData) => {
   return {
     headerTitle: "May",
-    headerLeft: () => (
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
-          title="Menu"
-          iconName="ios-menu"
-          onPress={() => {
-            navigationData.navigation.toggleDrawer();
-          }}
-        />
-      </HeaderButtons>
-    ),
   };
 };
 

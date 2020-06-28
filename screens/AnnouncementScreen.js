@@ -1,42 +1,11 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { HeaderButtons, Item } from "react-navigation-header-buttons";
-
-import { ANNOUNCEMENTITEM } from "../data/dummy-data";
-import { FlatList, ScrollView } from "react-native-gesture-handler";
-import AnnouncementGridTile from "../components/AnnouncementGridTile";
-import HeaderButton from "../components/HeaderButton";
-import { announcement_url } from "../constants/URLs";
-import Colors from "../constants/Colors";
+import { ScrollView } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-community/async-storage";
-import { Card, CardItem } from "react-native-elements";
+import { Card } from "react-native-elements";
+
+import { announcement_url } from "../constants/URLs";
 import Loader from "../components/Loader";
-
-const AnnouncementScreenOld = (props) => {
-  const renderAnnouncement = (itemData) => {
-    return <AnnouncementGridTile color={Colors.accentColour} />;
-  };
-
-  return (
-    <View style={styles.announcementBox}>
-      <Text>{props.navigation.getParam("moduleId")}</Text>
-      <FlatList data={ANNOUNCEMENTITEM} renderItem={renderAnnouncement} />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  announcementBox: {
-    flex: 1,
-  },
-  datetime: {
-    color: "#696969",
-    marginBottom: 3,
-  },
-  text: {
-    lineHeight: 22,
-  },
-});
 
 class AnnouncementScreen extends Component {
   constructor(props) {
@@ -50,11 +19,11 @@ class AnnouncementScreen extends Component {
   get_announcement(auth) {
     const header = new Headers();
     header.append("Content-Type", "application/json");
-    //console.log(this.props.navigation.getParam('moduleId'));
     const body = JSON.stringify({
       auth: auth,
       code: this.props.navigation.getParam("moduleId"),
     });
+
     fetch(announcement_url, {
       method: "POST",
       headers: header,
@@ -75,22 +44,14 @@ class AnnouncementScreen extends Component {
         if (result == null) {
           throw "Invalid";
         }
-        //console.log(result);
-        //console.log("hihihi");
         return result;
       })
       .then((msg) => msg.reverse())
       .then((result) => this.setState({ msgs: result, isloading: false }));
-    //.then(x => console.log(this.state.msgs[2].title))
-    //.catch(err => console.error(err))
   }
 
   componentDidMount() {
     AsyncStorage.getItem("token")
-      .then((token) => {
-        //console.log(token);
-        return token;
-      })
       .then((auth) => JSON.parse(auth))
       .then((result) => this.get_announcement(result))
       .catch((err) => console.error(err));
@@ -107,15 +68,17 @@ class AnnouncementScreen extends Component {
           })}
         </ScrollView>
       );
-      /*return (
-        <FlatList
-          data={this.state.msgs}
-          renderItem={this.message_cards}
-          keyExtractor={(item, index) => index.toString()} />
-      )*/
     }
   }
 }
+
+AnnouncementScreen.navigationOptions = (navigationData) => {
+  const moduleId = navigationData.navigation.getParam("moduleId");
+
+  return {
+    headerTitle: moduleId,
+  };
+};
 
 const message_cards = (item, i) => {
   return (
@@ -128,26 +91,17 @@ const message_cards = (item, i) => {
   );
 };
 
-AnnouncementScreen.navigationOptions = (navigationData) => {
-  const moduleId = navigationData.navigation.getParam("moduleId");
-
-  return {
-    headerTitle: moduleId,
-    headerLeft: () => (
-      <View>
-        <Text>gg</Text>
-      </View>
-      // <HeaderButtons HeaderButtonComponent={HeaderButton}>
-      //   <Item
-      //     title="Menu"
-      //     iconName="ios-menu"
-      //     onPress={() => {
-      //       navigationData.navigation.toggleDrawer();
-      //     }}
-      //   />
-      // </HeaderButtons>
-    ),
-  };
-};
+const styles = StyleSheet.create({
+  announcementBox: {
+    flex: 1,
+  },
+  datetime: {
+    color: "#696969",
+    marginBottom: 3,
+  },
+  text: {
+    lineHeight: 22,
+  },
+});
 
 export default AnnouncementScreen;

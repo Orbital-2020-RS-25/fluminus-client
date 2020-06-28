@@ -1,8 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const FileScreen = (props) => {
-  // const folderName = props.navigation.getParam('FolderName');
+const AnnouncementInfoScreen = (props) => {
   return (
     <View>
       <Text>TBD</Text>
@@ -12,4 +11,4 @@ const FileScreen = (props) => {
 
 const syles = StyleSheet.create({});
 
-export default FileScreen;
+export default AnnouncementInfoScreen;

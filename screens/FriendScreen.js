@@ -8,7 +8,19 @@ import HeaderButton from "../components/HeaderButton";
 
 const FriendScreen = (props) => {
   const renderFriendItem = (itemData) => {
-    return <FriendGridTile color={itemData.item.color} />;
+    return (
+      <FriendGridTile
+        color={itemData.item.color}
+        onSelect={() => {
+          props.navigation.navigate({
+            routeName: "TBD",
+            params: {
+              moduleId: itemData.item.id,
+            },
+          });
+        }}
+      />
+    );
   };
 
   return (

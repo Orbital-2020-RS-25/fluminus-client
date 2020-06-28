@@ -53,7 +53,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    //zIndex: 1,
     flex: 0.5,
     top: 50,
     backgroundColor: "#003D7C",
@@ -61,13 +60,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 8,
     borderRadius: 5,
-    //bottom: 40
   },
   buttonText: {
     color: "white",
     fontSize: 16,
   },
 });
+
 const storeData = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, value);
@@ -98,16 +97,6 @@ export default class Login extends Component {
    * from server. Loading animation is set to visible at start, invisible at the end.
    */
   login(login_callback) {
-    //console.log(this.state);
-    /*if (this.state.id === 'test' && this.state.password === 'test') {
-            this.setState({loading : false});
-            this.setState({loggedIn : true}, () => {
-                //console.log(this.state);
-                login_callback();
-            });
-            //console.log(this.state); 
-        } else {*/
-    console.log("in login function, not in fetch");
     this.setState({ loading: true });
     const headers = { "Content-Type": "application/json" };
     const body = JSON.stringify({
@@ -121,11 +110,8 @@ export default class Login extends Component {
     })
       .then((response) => response.json())
       .then((result) => {
-        console.log(result);
-        console.log("in login fetch")
         this.setState({ token: JSON.stringify(result.data) });
         this.setState({ loggedIn: result.status }, () => {
-          console.log(this.state);
           login_callback();
         });
         this.setState({ loading: false });
@@ -133,8 +119,6 @@ export default class Login extends Component {
       .catch((error) => {
         console.error(error);
       });
-    //Alert.alert(this.state.token);
-    //}
   }
 
   render() {
@@ -188,11 +172,9 @@ export default class Login extends Component {
                       //store to asyncStorage
                       storeData("id", this.state.id);
                       storeData("token", this.state.token);
-                      //if (this.state.id !== 'test') {
                       //calls user profile page
                       fetch(profile_url + this.state.id, {
                         method: "GET",
-                        //redirect : "follow"
                       })
                         .then((response) => response.json())
                         .then((result) => {

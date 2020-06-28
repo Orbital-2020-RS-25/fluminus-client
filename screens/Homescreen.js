@@ -20,7 +20,7 @@ const HomescreenOld= (props) => {
         color={itemData.item.color}
         onSelect={() => {
           props.navigation.navigate({
-            routeName: "TBD",
+            routeName: "Announcement Info",
             params: {
               moduleId: itemData.item.id,
             },
