@@ -20,7 +20,6 @@ import AnnouncementInfoScreen from "../screens/AnnouncementInfoScreen";
 import TBD from "../screens/TBD";
 
 import Colors from "../constants/Colors";
-import FolderScreen from "../screens/FolderScreen";
 
 const HomepageNavigation = createStackNavigator(
   {
@@ -91,7 +90,7 @@ const ModuleNavigator = createBottomTabNavigator(
     navigationOptions: { title: 'abc'}
   }
 })*/
-const FileInfoNavigation = ModuleInfoNavigation;
+//const FileInfoNavigation = ModuleInfoNavigation;
 
 const ModulesSelectionNavigation = createStackNavigator(
   {

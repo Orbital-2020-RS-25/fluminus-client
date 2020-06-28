@@ -13,9 +13,7 @@ import {
 import AsyncStorage from "@react-native-community/async-storage";
 
 import Loader from "../components/Loader.js";
-import get_date from '../constants/Weeks';
 import { login_url, profile_url } from "../constants/URLs.js";
-import Homescreen from "../screens/Homescreen"
 
 const styles = StyleSheet.create({
   container: {

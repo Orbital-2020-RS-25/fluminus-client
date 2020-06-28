@@ -86,20 +86,21 @@ class Homescreen extends Component {
   componentDidMount() {
     AsyncStorage.getItem("timetable")
                 .then((result) => {
+                  //console.log(result);
                   let timetable = this.makeTimeDataArray(JSON.parse(result));
                   this.setState({
                     timetable: timetable, 
                     loading: false});
-                  console.log(this.state.timetable);
+                  //console.log(this.state.timetable);
                 })
                 .catch(e => console.error(e));
   }
 
   makeTimeDataArray(timetable) {
     let dataArray = [];
-    for (t in timetable) {
+    for (let t in timetable) {
       //console.log(timetable[t]);
-      for (i in timetable[t]) {
+      for (let i in timetable[t]) {
         //console.log(timetable[t][i]);
         let item = timetable[t][i];
         dataArray.push((new appt(item.name.code, item.name.venue, item.start, item.end)).item);
