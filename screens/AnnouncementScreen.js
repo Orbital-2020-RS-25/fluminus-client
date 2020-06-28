@@ -23,6 +23,7 @@ class AnnouncementScreen extends Component {
       auth: auth,
       code: this.props.navigation.getParam("moduleId"),
     });
+
     fetch(announcement_url, {
       method: "POST",
       headers: header,
