@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 0.5,
-    top: 50,
+    top: 30,
     backgroundColor: "#003D7C",
     alignItems: "center",
     paddingHorizontal: 5,
@@ -63,6 +63,18 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
   },
+  wrongInfoBanner: {
+    borderRadius: 10, 
+    backgroundColor: "#f8d7da", //mistyrose
+    alignItems: "center", 
+    top: 10, 
+    bottom: 10, 
+  }, 
+  wrongInfoText: {
+    margin: 5, 
+    color: "#752028", 
+    fontSize: 14, 
+  }
 });
 
 const storeData = async (key, value) => {
@@ -72,6 +84,18 @@ const storeData = async (key, value) => {
     console.error(e);
   }
 };
+
+const WrongInfoBanner = (props) => {
+  return (
+    <View style={styles.wrongInfoBanner}>
+      <Text style={styles.wrongInfoText}>
+        {props.correctCredentials == 1
+          ? "ID and Password cannot be empty!"
+          : "Incorrect ID/Password."}
+      </Text>
+    </View>
+  );
+}
 
 export default class Login extends Component {
   constructor(props) {
@@ -83,6 +107,7 @@ export default class Login extends Component {
       timetable: {}, 
       loading: false,
       loggedIn: false,
+      correctCredentials: 0
     };
   }
 
@@ -108,11 +133,20 @@ export default class Login extends Component {
     })
       .then((response) => response.json())
       .then((result) => {
-        this.setState({ token: JSON.stringify(result.data) });
-        this.setState({ loggedIn: result.status }, () => {
-          login_callback();
-        });
-        this.setState({ loading: false });
+        if (!result.status) {
+          this.setState({ 
+            id: "", 
+            password: "",
+            correctCredentials: 2, 
+            loading: false
+           });
+        } else {
+          this.setState({ token: JSON.stringify(result.data) });
+          this.setState({ loggedIn: result.status }, () => {
+            login_callback();
+          });
+          this.setState({ loading: false });
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -153,56 +187,67 @@ export default class Login extends Component {
                 onChangeText={(password) => this.setState({ password })}
               />
             </View>
+            <View>
+              <View style={{felx:0.5}}>
+                {!this.state.correctCredentials !== 0 && 
+                  <WrongInfoBanner correctCredentials={this.state.correctCredentials}/>}
+              </View>
+            </View>
             <View style={styles.rowFlexContainer}>
               <TouchableOpacity
                 style={styles.button}
                 //what happens when login button is pressed
                 onPress={() => {
-                  Keyboard.dismiss();
                   this.clearText("idBox");
                   this.clearText("passBox");
                   console.log("button pressed");
-                  this.login(() => { 
-                    //callback that is executed after the fetch is done
-                    //already has token at this stage
-                    console.log("login fetched");
-                    if (this.state.loggedIn) {
-                      //store to asyncStorage
-                      storeData("id", this.state.id);
-                      storeData("token", this.state.token);
-                      //calls user profile page
-                      fetch(profile_url + this.state.id, {
-                        method: "GET",
-                      })
-                        .then((response) => response.json())
-                        .then((result) => {
-                          let mod_info = result.data.mods;
-                          storeData("profile", JSON.stringify(result.data));
-                          let mods = Object.keys(mod_info);
-                          storeData("mods", JSON.stringify(mods));
-                          let timetable = result.data.timetable;
-                          this.setState({timetable: timetable});
-                          //console.log(timetable)
-                          //this.state.timetable = timetable;
-                          /*for (let timing in timetable) {
-                            for (let i = 0; i < timing.length; i++) {
-                              timing[i].name = timing[i].name.code
-                            }
-                          }*/
-                          storeData("timetable", JSON.stringify(timetable))
+                  if (this.state.id === "" || this.state.password === "") {
+                    this.setState({correctCredentials: 1})
+                  } else {
+                    Keyboard.dismiss();
+                    this.login(() => { 
+                      //callback that is executed after the fetch is done
+                      //only ran if credentials are correct
+                      //already has token at this stage
+                      console.log("login fetched");
+                      if (this.state.loggedIn) {
+                        //store to asyncStorage
+                        storeData("id", this.state.id);
+                        storeData("token", this.state.token);
+                        //calls user profile page
+                        fetch(profile_url + this.state.id, {
+                          method: "GET",
                         })
-                        .catch((error) => console.error(error));
-                      //}
-                      //<Homescreen nusId={this.state.id} timetable={this.state.timetable} />
-                      this.props.navigation.navigate({
-                        routeName: "MainScreen", 
-                        params: {
-                          nusId: this.state.id, 
-                          timetable: this.state.timetable
-                        }
-                      });
-                    }
-                  });
+                          .then((response) => response.json())
+                          .then((result) => {
+                            let mod_info = result.data.mods;
+                            storeData("profile", JSON.stringify(result.data));
+                            let mods = Object.keys(mod_info);
+                            storeData("mods", JSON.stringify(mods));
+                            let timetable = result.data.timetable;
+                            this.setState({timetable: timetable});
+                            //console.log(timetable)
+                            //this.state.timetable = timetable;
+                            /*for (let timing in timetable) {
+                              for (let i = 0; i < timing.length; i++) {
+                                timing[i].name = timing[i].name.code
+                              }
+                            }*/
+                            storeData("timetable", JSON.stringify(timetable))
+                          })
+                          .catch((error) => console.error(error));
+                        //}
+                        //<Homescreen nusId={this.state.id} timetable={this.state.timetable} />
+                        this.props.navigation.navigate({
+                          routeName: "MainScreen", 
+                          params: {
+                            nusId: this.state.id, 
+                            timetable: this.state.timetable
+                          }
+                        });
+                      }
+                    });
+                  }
                 }}
               >
                 <Text style={styles.buttonText}> LOGIN </Text>
