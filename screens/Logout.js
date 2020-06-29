@@ -19,7 +19,7 @@ export default class Logout extends Component {
 
     componentDidMount() {
         clearAppData();
-        return this.props.navigation.navigate('Login')
+        return this.props.navigation.navigate('Login');
     }
 
     render() {

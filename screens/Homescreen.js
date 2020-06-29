@@ -1,37 +1,16 @@
 import React from "react";
 import { FlatList, StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import Moment from 'moment';
+//import Moment from 'moment';
 import { SCHEDULEITEMS } from "../data/dummy-data";
 import ScheduleItemTile from "../components/ScheduleItemTile";
 import HeaderButton from "../components/HeaderButton";
-import {Agenda} from 'react-native-calendars';
+//import {Agenda} from 'react-native-calendars';
 import AsyncStorage from "@react-native-community/async-storage";
 import { Component } from "react";
 import Loader from "../components/Loader"
 import RNSchedule from 'rnschedule';
-import { sub } from "react-native-reanimated";
-
-const HomescreenOld= (props) => {
-  const renderScheduleItem = (itemData) => {
-    return (
-      <ScheduleItemTile
-        schedule={itemData.item.title}
-        color={itemData.item.color}
-        onSelect={() => {
-          props.navigation.navigate({
-            routeName: "Announcement Info",
-            params: {
-              moduleId: itemData.item.id,
-            },
-          });
-        }}
-      />
-    );
-  };
-
-  return <FlatList data={SCHEDULEITEMS} renderItem={renderScheduleItem} />;
-};
+//import { sub } from "react-native-reanimated";
 
 
 const renderItem = (item) => {  
@@ -91,7 +70,7 @@ class Homescreen extends Component {
                   this.setState({
                     timetable: timetable, 
                     loading: false});
-                  //console.log(this.state.timetable);
+                    console.log(this.state.timetable);
                 })
                 .catch(e => console.error(e));
   }
@@ -128,7 +107,7 @@ class Homescreen extends Component {
         //<View>
         <RNSchedule
           dataArray={this.state.timetable}
-          //onEventPress={(appt) => console.log(appt)}
+          onEventPress={(appt) => console.log(appt)}
           />
         //</View>
       )

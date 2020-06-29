@@ -238,13 +238,8 @@ export default class Login extends Component {
                           .catch((error) => console.error(error));
                         //}
                         //<Homescreen nusId={this.state.id} timetable={this.state.timetable} />
-                        this.props.navigation.navigate({
-                          routeName: "MainScreen", 
-                          params: {
-                            nusId: this.state.id, 
-                            timetable: this.state.timetable
-                          }
-                        });
+                        
+                        this.props.navigation.navigate('MainScreen');
                       }
                     });
                   }
