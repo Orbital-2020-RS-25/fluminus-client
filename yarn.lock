@@ -4845,7 +4845,7 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
-rnschedule@^0.0.5:
+rnschedule@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/rnschedule/-/rnschedule-0.0.5.tgz#6dd0c61868e66db6978e84f85a8131a2d34bc2f1"
   integrity sha512-HivDEYo7hljo0QFcAV81Irw8+nlnXEe9E0frp5emcz60NyIAamP2kT9uEmRUeW4aNpYM77VaQpZzvnpzpS0IPw==

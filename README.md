@@ -15,18 +15,21 @@ Although there is a pre-existing APP for Luminus, its' UI is cluttered, and navi
 
 # Screenshots
 ![Login]
-![Schedule]
+![Schedule](/screenshot/Schedule_page.jpeg?raw=true "Schedules")
 ![Side drawer]
 ![Announcements]
 ![Files]
 
 # Tech stack
 
-Front-end: [React-Native](https://reactnative.dev/ "React-Native")
+###Front-end: 
+..*[React-Native](https://reactnative.dev/ "React-Native")
+..*[Expo](https://expo.io/ "Expo")
 
-Back-end: [Flask](https://flask.palletsprojects.com/en/1.1.x/ "Flask documentation")
+###Back-end: 
+..*[Flask](https://flask.palletsprojects.com/en/1.1.x/ "Flask documentation")
 
-Server: 
+###Server: 
 
 # Features
 S/N |	Feature |	Function	| Achieved
@@ -50,7 +53,7 @@ Yarn: `$yarn install`
 # Tests
 
 # How to use?
-1. Emulate the APP using emulator of choice
+1. Emulate the APP using emulator of choice (Recommended: `$expo start`)
 2. Login to Luminus with studentID, passowrd
 3. Homepage will display current schedule, upcomming classes etc
 4. Clicking the menu on the top left hand corner will allow navigation to module information and to log out
