@@ -189,7 +189,7 @@ export default class Login extends Component {
             </View>
             <View>
               <View style={{felx:0.5}}>
-                {!this.state.correctCredentials !== 0 && 
+                {this.state.correctCredentials !== 0 && 
                   <WrongInfoBanner correctCredentials={this.state.correctCredentials}/>}
               </View>
             </View>
