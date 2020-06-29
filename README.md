@@ -1,6 +1,6 @@
 # Fluminus Mobile App
 
-Mobile client for the Luminus app made for Orbital. 
+Mobile client for the Luminus app made for Orbital.
 
 Made in React Native, with a [flask backend server](https://github.com/Orbital-2020-RS-25/pyfluminus-server) hosted on Heroku. 
 
@@ -21,9 +21,12 @@ Although there is a pre-existing APP for Luminus, its' UI is cluttered, and navi
 
 ## Tech stack
 
-Front-end: [React-Native](https://reactnative.dev/ "React-Native")
+### Front-end
+* [React-Native](https://reactnative.dev/ "React-Native")
+* [Expo](https://expo.io/ "Expo")
 
-Back-end: [Flask](https://flask.palletsprojects.com/en/1.1.x/ "Flask documentation")
+### Back-end
+* [Flask](https://flask.palletsprojects.com/en/1.1.x/ "Flask documentation")
 
 Database: PostreSQL with flask-sqlalchemy
 
