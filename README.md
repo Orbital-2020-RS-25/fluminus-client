@@ -16,13 +16,8 @@ Although there is a pre-existing APP for Luminus, its' UI is cluttered, and navi
 
 ## Demos
 
-<img alt="Logging in" src="./demo/login.gif">
-
-<img alt="Timetable" src="./demo/schedule.png">
-
-<img alt="Announcements" src="./demo/anouncements.gif">
-
-<img alt="Timetable" src="./demo/folders.gif">
+<img alt="Logging in" src="./demo/login.gif" width="200"> <img alt="Timetable" src="./demo/schedule.png" width="200">
+<img alt="Announcements" src="./demo/anouncements.gif" width="200"> <img alt="Timetable" src="./demo/folders.gif" width="200">
 
 ## Tech stack
 
@@ -64,14 +59,12 @@ Click [here](https://app.swaggerhub.com/apis-docs/orbital-rs25/another-luminus/)
 
 ## Software Engineering
 
-Source control | We practised source control for our code through git, with major changes or additions made on new branches that are subsequently merged to master branch only if they work and we both agree on the changes or additions
-Design | Abstraction<br/>
-        <ul>With the cilent-server model, data from LumiNUS and NUSMods are processed on the server into nice chunks of JSON that follow a standard format, allowing the cilent to access the needed data easily. </ul>
-         Separation of concerns<br/>
-        <ul>Screens do not depend on each other and are focused on doing a single task, so modifiying one page would not affect the functions of other pages. <ul>
-         UI<br/>
-        <ul>Designed to make it simple to navigate through, with all the information easily accessible. </ul>
-        <ul>Announcements and files are designed to resemble how they are presented on web LumiNUS to make it feel more intuitive to use. </ul>
+| Type | Description |
+| --- | --- |
+| Source control | We practised source control for our code through git, with major changes or additions made on new branches that are subsequently merged to master branch only if they work and we both agree on the changes or additions |
+| Abstraction | With the cilent-server model, data from LumiNUS and NUSMods are processed on the server into nice chunks of JSON that follow a standard format, allowing the cilent to access the needed data easily. |
+| Separation of concerns | Screens do not depend on each other and are focused on doing a single task, so modifiying one page would not affect the functions of other pages. |
+| UI | Designed to make it simple to navigate through, with all the information easily accessible. Announcements and files are designed to resemble how they are presented on web LumiNUS to make it feel more intuitive to use. |
 
 ## Tests
 
