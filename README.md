@@ -15,7 +15,7 @@ Although there is a pre-existing APP for Luminus, its' UI is cluttered, and navi
 
 # Screenshots
 ![Login]
-![Schedule](/screenshot/Schedule_page.jpeg?raw=true "Schedules")
+<img src="/screenshot/Schedule_page.jpeg"  width="400" height="650">
 ![Side drawer]
 ![Announcements]
 ![Files]
