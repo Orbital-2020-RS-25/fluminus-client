@@ -31,10 +31,13 @@ Although there is a pre-existing APP for Luminus, its' UI is cluttered, and navi
 
 ### Back-end
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/ "Flask documentation")
+* [Flask-sqlalchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/ "Documentation")
 
-Database: PostreSQL with flask-sqlalchemy
+### Database
+* [PostreSQL](https://www.postgresql.org/ "PostreSQL")
 
-Hosted on Heroku.
+### Hosting
+* Heroku
 
 This project relies on [Pyfluminus](https://github.com/raynoldng/pyfluminus) for communications with FlumiNUS, and [NUSMods API](https://api.nusmods.com/v2/) for timetable information.
 
