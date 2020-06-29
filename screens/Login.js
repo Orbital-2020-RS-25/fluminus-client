@@ -64,12 +64,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   wrongInfoBanner: {
+    borderRadius: 10, 
     backgroundColor: "#f8d7da", //mistyrose
     alignItems: "center", 
     top: 10, 
     bottom: 10, 
   }, 
   wrongInfoText: {
+    margin: 5, 
     color: "#752028", 
     fontSize: 14, 
   }
@@ -87,7 +89,9 @@ const WrongInfoBanner = (props) => {
   return (
     <View style={styles.wrongInfoBanner}>
       <Text style={styles.wrongInfoText}>
-        ID and Password cannot be empty!
+        {props.correctCredentials == 1
+          ? "ID and Password cannot be empty!"
+          : "Incorrect ID/Password."}
       </Text>
     </View>
   );
@@ -103,7 +107,7 @@ export default class Login extends Component {
       timetable: {}, 
       loading: false,
       loggedIn: false,
-      correctFormat: true
+      correctCredentials: 0
     };
   }
 
@@ -129,11 +133,20 @@ export default class Login extends Component {
     })
       .then((response) => response.json())
       .then((result) => {
-        this.setState({ token: JSON.stringify(result.data) });
-        this.setState({ loggedIn: result.status }, () => {
-          login_callback();
-        });
-        this.setState({ loading: false });
+        if (!result.status) {
+          this.setState({ 
+            id: "", 
+            password: "",
+            correctCredentials: 2, 
+            loading: false
+           });
+        } else {
+          this.setState({ token: JSON.stringify(result.data) });
+          this.setState({ loggedIn: result.status }, () => {
+            login_callback();
+          });
+          this.setState({ loading: false });
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -176,7 +189,8 @@ export default class Login extends Component {
             </View>
             <View>
               <View style={{felx:0.5}}>
-                {!this.state.correctFormat && <WrongInfoBanner />}
+                {!this.state.correctCredentials !== 0 && 
+                  <WrongInfoBanner correctCredentials={this.state.correctCredentials}/>}
               </View>
             </View>
             <View style={styles.rowFlexContainer}>
@@ -188,11 +202,12 @@ export default class Login extends Component {
                   this.clearText("passBox");
                   console.log("button pressed");
                   if (this.state.id === "" || this.state.password === "") {
-                    this.setState({correctFormat: false})
+                    this.setState({correctCredentials: 1})
                   } else {
                     Keyboard.dismiss();
                     this.login(() => { 
                       //callback that is executed after the fetch is done
+                      //only ran if credentials are correct
                       //already has token at this stage
                       console.log("login fetched");
                       if (this.state.loggedIn) {
