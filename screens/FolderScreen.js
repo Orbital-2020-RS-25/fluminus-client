@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Card } from "react-native-elements";
 
-import FolderGridTile from "../components/FolderGridTile";
+import FolderSystem from "../components/FolderGridTile";
 
 class FolderScreen extends Component {
   constructor(props) {
@@ -24,6 +24,7 @@ class FolderScreen extends Component {
           });
         }}
         name={itemData.item.name}
+        type={itemData.item.type}
       />
     );
   };
@@ -43,7 +44,7 @@ class FolderScreen extends Component {
       .then((result) => result.data)
       .then((data) => JSON.parse(JSON.parse(data)))
       .then((folders) =>
-        this.setState({ folder: folders.children, isLoading: false })
+        this.setState({ folder: [folders], isLoading: false })
       );
   }
 
@@ -60,17 +61,21 @@ class FolderScreen extends Component {
       );
     } else {
       return (
+        <FolderSystem
+          items={[this.state.folder]}
+          root={true}
+        />
+        /*
         <FlatList
           data={this.state.folder}
           renderItem={this.renderFolders}
           numColumns="2"
           keyExtractor={(item, index) => index.toString()}
         />
+        */
       );
     }
   }
 }
-
-FolderScreen.navigationOptions = (navigationData) => {};
 
 export default FolderScreen;
