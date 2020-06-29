@@ -1,6 +1,6 @@
 # Fluminus Mobile App
 
-Mobile client for the Luminus app made for Orbital. 
+Mobile client for the Luminus app made for Orbital.
 
 Made in React Native, with a [flask backend server](https://github.com/Orbital-2020-RS-25/pyfluminus-server) hosted on Heroku. 
 
@@ -22,14 +22,14 @@ Although there is a pre-existing APP for Luminus, its' UI is cluttered, and navi
 
 # Tech stack
 
-###Front-end: 
-..*[React-Native](https://reactnative.dev/ "React-Native")
-..*[Expo](https://expo.io/ "Expo")
+### Front-end
+* [React-Native](https://reactnative.dev/ "React-Native")
+* [Expo](https://expo.io/ "Expo")
 
-###Back-end: 
-..*[Flask](https://flask.palletsprojects.com/en/1.1.x/ "Flask documentation")
+### Back-end
+* [Flask](https://flask.palletsprojects.com/en/1.1.x/ "Flask documentation")
 
-###Server: 
+### Server
 
 # Features
 S/N |	Feature |	Function	| Achieved
@@ -46,11 +46,16 @@ Legend:
 
 # Installation
 
-Yarn: `$yarn install`
+**Yarn** `$yarn install`
 
 # API Reference
+* Luminus
 
 # Tests
+* Login page is not popped
+* Schedule page not rerendered
+* Unkown network error when logging in (Rarely)
+* Reduce API calls that increases wait time
 
 # How to use?
 1. Emulate the APP using emulator of choice (Recommended: `$expo start`)
