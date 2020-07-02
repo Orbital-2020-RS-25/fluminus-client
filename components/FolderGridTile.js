@@ -9,7 +9,7 @@ import {
   FlatList, 
   BackHandler
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 export default class FolderSystem extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ export default class FolderSystem extends Component {
             root: props.root
         }
     }
-
+    
     backAction = () => {
         if (this.state.root) {
 
@@ -60,7 +60,9 @@ export default class FolderSystem extends Component {
                     }
                 }}>
             <View style={styles.container}>
-                <Ionicons name="md-folder" size={25} />
+                <MaterialCommunityIcons 
+                    name={type === 'folder' ? "folder" : "file"} 
+                    size={20} />
                 <Text> </Text>
                 <Text style={styles.name} numberOfLines={1}>
                 {name}
@@ -95,7 +97,6 @@ export default class FolderSystem extends Component {
             <FlatList
               data={this.state.items[num]}
               renderItem={this.renderFolders}
-              numColumns="2"
               keyExtractor={(item, index) => index.toString()}
             />
         );
@@ -104,8 +105,8 @@ export default class FolderSystem extends Component {
 
 const styles = StyleSheet.create({
   fileBox: {
-    borderWidth: 1,
-    borderColor: "black",
+    //borderWidth: 1,
+    //borderColor: "black",
     flex: 1,
     margin: 15,
     height: 50,

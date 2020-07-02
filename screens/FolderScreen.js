@@ -35,7 +35,7 @@ class FolderScreen extends Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         auth: { jwt: "whatever, or use token from asyncstorage" },
-        code: "CS2100",
+        code: "OTH633",
       }),
     })
       .then((response) => {
@@ -44,7 +44,7 @@ class FolderScreen extends Component {
       .then((result) => result.data)
       .then((data) => JSON.parse(JSON.parse(data)))
       .then((folders) =>
-        this.setState({ folder: [folders], isLoading: false })
+        this.setState({ folder: folders.children, isLoading: false })
       );
   }
 

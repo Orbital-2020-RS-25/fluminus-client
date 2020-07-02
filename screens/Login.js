@@ -15,6 +15,13 @@ import AsyncStorage from "@react-native-community/async-storage";
 import Loader from "../components/Loader.js";
 import { login_url, profile_url } from "../constants/URLs.js";
 
+import { StackActions, NavigationActions } from 'react-navigation';
+
+const resetAction = StackActions.reset({
+    index: 0,
+    actions: [NavigationActions.navigate({ routeName: 'MainScreen' })],
+});
+
 const styles = StyleSheet.create({
   container: {
     top: 40,
@@ -239,7 +246,7 @@ export default class Login extends Component {
                         //}
                         //<Homescreen nusId={this.state.id} timetable={this.state.timetable} />
                         
-                        this.props.navigation.navigate('MainScreen');
+                        this.props.navigation.dispatch(resetAction);
                       }
                     });
                   }

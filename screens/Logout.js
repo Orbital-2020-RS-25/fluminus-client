@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../components/Loader.js'
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Keyboard, KeyboardAvoidingView, Image, TouchableWithoutFeedback} from 'react-native'
+import { View } from 'react-native'
 
 const clearAppData = async () => {
     try {
@@ -15,17 +15,21 @@ const clearAppData = async () => {
 export default class Logout extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            loading: true
+        };
     }
 
     componentDidMount() {
         clearAppData();
+        this.setState({loading: false});
         return this.props.navigation.navigate('Login');
     }
 
     render() {
         return (
         <View>
-            <Loader loading={true} />
+            <Loader loading={this.state.loading} />
         </View>
         );
     }
