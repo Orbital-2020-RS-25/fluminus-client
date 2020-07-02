@@ -1,17 +1,11 @@
 import React from "react";
 import { FlatList, StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-//import Moment from 'moment';
-import { SCHEDULEITEMS } from "../data/dummy-data";
-import ScheduleItemTile from "../components/ScheduleItemTile";
 import HeaderButton from "../components/HeaderButton";
-//import {Agenda} from 'react-native-calendars';
 import AsyncStorage from "@react-native-community/async-storage";
 import { Component } from "react";
 import Loader from "../components/Loader"
 import RNSchedule from 'rnschedule';
-//import { sub } from "react-native-reanimated";
-
 
 const renderItem = (item) => {  
   //console.log(firstItemInDay);
