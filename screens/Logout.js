@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AsyncStorage from '@react-native-community/async-storage';
 import Loader from '../components/Loader.js'
 import { View } from 'react-native'
+import { StackActions, NavigationActions } from 'react-navigation';
 
 const clearAppData = async () => {
     try {
@@ -11,6 +12,11 @@ const clearAppData = async () => {
         console.error('Error clearing app data.');
     }
 }
+
+const logoutAndClearStack = StackActions.reset({
+    index: 0,
+    actions: [NavigationActions.navigate({ routeName: 'Login' })],
+});
 
 export default class Logout extends Component {
     constructor(props) {
@@ -23,7 +29,7 @@ export default class Logout extends Component {
     componentDidMount() {
         clearAppData();
         this.setState({loading: false});
-        return this.props.navigation.navigate('Login');
+        this.props.navigation.dispatch(logoutAndClearStack);
     }
 
     render() {
