@@ -36,7 +36,17 @@ const HomepageNavigation = createStackNavigator(
     },
   }
 );
+/*
+const Tabs = createBottomTabNavigator();
 
+const ModuleNavigator = () => {
+  return (
+    <Tabs.Navigator lazy={false}>
+      <Tabs.screen name
+    </Tabs.Navigator>
+  )
+}</Tabs.Navigator>
+*/
 const ModuleNavigator = createBottomTabNavigator(
   {
     Announcements: {
@@ -63,6 +73,7 @@ const ModuleNavigator = createBottomTabNavigator(
         },
       },
     },
+    /*
     Media: {
       screen: MediaScreen,
       navigationOptions: {
@@ -72,7 +83,7 @@ const ModuleNavigator = createBottomTabNavigator(
           );
         },
       },
-    },
+    },*/
   },
   {
     tabBarOptions: {
