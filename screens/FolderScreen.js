@@ -11,6 +11,7 @@ class FolderScreen extends Component {
     super(props);
     this.state = {
       // folderName: "invalid",
+      rootName: "", 
       folder: [],
       isLoading: true,
       token: ""
@@ -21,7 +22,7 @@ class FolderScreen extends Component {
 
   renderFolders = (itemData) => {
     return (
-      <FolderGridTile
+      <FolderSystem
         onSelect={() => {
           this.props.navigation.navigate({
             routeName: "FileSelection",
@@ -29,6 +30,7 @@ class FolderScreen extends Component {
         }}
         name={itemData.item.name}
         type={itemData.item.type}
+        root={true}
       />
     );
   };
@@ -47,7 +49,8 @@ class FolderScreen extends Component {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             auth: { token },
-            code: this.modName,
+            code: "OTH633"
+            //code: this.modName,
           }),
         })
           .then((response) => {
@@ -56,7 +59,7 @@ class FolderScreen extends Component {
           .then((result) => result.data)
           .then((data) => JSON.parse(JSON.parse(data)))
           .then((folders) =>
-            this.setState({ folder: folders.children, isLoading: false })
+            this.setState({ rootName: folders.name, folder: folders.children, isLoading: false })
           );
       })
       .catch(e => console.error(e));
@@ -78,6 +81,7 @@ class FolderScreen extends Component {
     } else {
       return (
         <FolderSystem
+          rootName={this.state.rootName}
           items={[this.state.folder]}
           root={true}
         />
