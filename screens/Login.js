@@ -11,6 +11,8 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
+import CheckBox from '@react-native-community/checkbox';
+import * as SecureStore from 'expo-secure-store';
 
 import Loader from "../components/Loader.js";
 import { login_url, profile_url } from "../constants/URLs.js";
@@ -104,6 +106,7 @@ const WrongInfoBanner = (props) => {
   );
 }
 
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -114,12 +117,33 @@ export default class Login extends Component {
       timetable: {}, 
       loading: false,
       loggedIn: false,
-      correctCredentials: 0
+      correctCredentials: 0, 
+      remember: false
     };
   }
 
   clearText(fieldName) {
     this.refs[fieldName].setNativeProps({ text: "" });
+  }
+
+  async componentDidMount() {
+    await SecureStore.getItemAsync('password')
+                     .then(async (result) => {
+                        if (result !== null) {
+                          this.setItem({password: result})
+                          await SecureStore.getItemAsync('user')
+                                           .then((result) => {
+                                              if (result !== null) {
+                                                this.setState({id: result})
+                                              }})
+                                           .catch(e => console.log(e));
+                          this.login(this.login_callback);
+
+                        }
+                     })
+                     .then((result) => {
+                     })
+                     .catch(e => console.log(e));
   }
 
   /**
@@ -162,6 +186,49 @@ export default class Login extends Component {
       });
   }
 
+  login_callback() { 
+    //callback that is executed after the fetch is done
+    //only ran if credentials are correct
+    //already has token at this stage
+    console.log("login fetched");
+      //store to asyncStorage
+    console.log("hihihi")
+    storeData("id", this.state.id);
+    storeData("token", this.state.token);
+    if (this.state.remember) {
+      SecureStore.setItemAsync('user', this.state.id);
+      SecureStore.setItemAsync('password', this.state.password);
+      console.log(this.state.password)
+    }
+    this.setState({password: ""});
+    //calls user profile page
+    fetch(profile_url + this.state.id, {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        let mod_info = result.data.mods;
+        storeData("profile", JSON.stringify(result.data));
+        let mods = Object.keys(mod_info);
+        storeData("mods", JSON.stringify(mods));
+        let timetable = result.data.timetable;
+        this.setState({timetable: timetable});
+        //console.log(timetable)
+        //this.state.timetable = timetable;
+        /*for (let timing in timetable) {
+          for (let i = 0; i < timing.length; i++) {
+            timing[i].name = timing[i].name.code
+          }
+        }*/
+        storeData("timetable", JSON.stringify(timetable))
+      })
+      .catch((error) => console.error(error));
+    //}
+    //<Homescreen nusId={this.state.id} timetable={this.state.timetable} />
+    console.log("hi");
+    this.props.navigation.dispatch(resetAction);
+  }
+
   render() {
     return (
       <KeyboardAvoidingView style={{ flex: 1 }}>
@@ -197,6 +264,17 @@ export default class Login extends Component {
                 secureTextEntry={true}
                 onChangeText={(password) => this.setState({ password })}
               />
+            </View>
+            <View style={{flexDirection: "row", alignItems: "center"}}>
+              <CheckBox
+                disabled={false}
+                value={this.state.remember}
+                onValueChange={() => {
+                  this.setState({
+                    remember: !this.state.remember
+                  })
+                }} />
+              <Text>Remember me</Text>
             </View>
             <View>
               <View>
@@ -255,8 +333,7 @@ export default class Login extends Component {
                       }
                     });
                   }
-                }}
-              >
+                }}              >
                 <Text style={styles.buttonText}> LOGIN </Text>
               </TouchableOpacity>
             </View>
@@ -266,3 +343,4 @@ export default class Login extends Component {
     );
   }
 }
+

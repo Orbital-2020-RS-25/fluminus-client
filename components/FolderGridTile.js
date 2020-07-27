@@ -8,10 +8,12 @@ import {
   TouchableNativeFeedback,
   FlatList, 
   BackHandler,
-  Linking
+  Linking,
+  Modal
 } from "react-native";
+import * as WebBrowser from 'expo-web-browser';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-
+import FilesWebView from './FilesWebView';
 /**
  * Recusively generates the directory represented by the json gotten from the pyfluminus. 
  * 
@@ -31,26 +33,11 @@ export default class FolderSystem extends Component {
         //console.log(this.state.rootName)
     }
 
-    /*
-    backAction = () => {
-        if (this.state.root) {
-
-        } else {
-            this.state.items.pop();
-        }
-    }
-
-    componentDidMount() {
-        this.backHandler = 
-            BackHandler.addEventListener('hardwareBackPress', this.backAction);
- 
-    }
-
-    componentWillUnmount() {
-        this.backHandler.remove();
-    }
-    */
-
+    getView = async (url) => {
+        let result = await WebBrowser
+            .openBrowserAsync('https://www.comp.nus.edu.sg/images/resources/content/undergraduates/study_planner-CS2019.pdf');
+        this.setState({ result });
+      };
 
     folderGridTile = (name, type, content, item) => {
         let TouchableCmp = TouchableOpacity;
@@ -73,10 +60,8 @@ export default class FolderSystem extends Component {
                         //console.log(name);
                         //console.log(content);
                         //console.log(item);
-                        <View style={{flex: 1}}>
-                            <FilesWebView url={content} />
-                        </View>
-
+                        //console.log(this.props.navigation)
+                        this.getView(content);
                         /*
                         if (content.slice(0, 4) === 'file:') {
                             Linking.openURL(content);
@@ -110,18 +95,6 @@ export default class FolderSystem extends Component {
 
     renderFolders = (itemData) => {
         return (
-            /*
-            <FolderGridTile
-            onSelect={() => {
-                this.props.navigation.navigate({
-                routeName: "FileSelection",
-                });
-            }}
-            name={itemData.item.name}
-            type={itemData.item.type}
-            contents={itemData.item.children}
-            />
-            */
            this.folderGridTile(itemData.item.name, itemData.item.type, 
             itemData.item.type === 'folder' ? itemData.item.children : itemData.item.link, 
             itemData.item)

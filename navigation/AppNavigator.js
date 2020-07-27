@@ -11,12 +11,9 @@ import ModulesSelectionScreen from "../screens/ModulesSelectionScreen";
 import AnnouncementScreen from "../screens/AnnouncementScreen";
 import Login from "../screens/Login";
 import FolderScreen from "../screens/FolderScreen";
-import MediaScreen from "../screens/MediaScreen";
 import Logout from "../screens/Logout";
-import FilesWebView from "../screens/FilesWebView";
 
 import AnnouncementInfoScreen from "../screens/AnnouncementInfoScreen";
-import TBD from "../screens/TBD";
 
 import Colors from "../constants/Colors";
 
@@ -35,17 +32,7 @@ const HomepageNavigation = createStackNavigator(
     },
   }
 );
-/*
-const Tabs = createBottomTabNavigator();
 
-const ModuleNavigator = () => {
-  return (
-    <Tabs.Navigator lazy={false}>
-      <Tabs.screen name
-    </Tabs.Navigator>
-  )
-}</Tabs.Navigator>
-*/
 const ModuleNavigator = createBottomTabNavigator(
   {
     Announcements: {
@@ -67,7 +54,10 @@ const ModuleNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: (tabInfo) => {
           return (
-            <Ionicons name="md-document" size={25} color={tabInfo.tintColor} />
+            <Ionicons 
+              name="md-document" 
+              size={25} 
+              color={tabInfo.tintColor} />
           );
         },
       },
@@ -95,18 +85,11 @@ const ModuleNavigator = createBottomTabNavigator(
   }
 );
 
-/*const ModuleNavigator = createStackNavigator({
-  ModuleInfoNavigation: {
-    navigationOptions: { title: 'abc'}
-  }
-})*/
-//const FileInfoNavigation = ModuleInfoNavigation;
-
 const ModulesSelectionNavigation = createStackNavigator(
   {
     ModulesSelection: ModulesSelectionScreen,
     "Module info": ModuleNavigator,
-    FileSelection: FolderScreen,
+    //FileSelection: FolderScreen,
   },
   {
     defaultNavigationOptions: {

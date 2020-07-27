@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
 
-import { ANNOUNCEMENTITEM } from "../data/dummy-data";
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import AnnouncementGridTile from "../components/AnnouncementGridTile";
 import HeaderButton from "../components/HeaderButton";
@@ -11,19 +10,6 @@ import Colors from "../constants/Colors";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Card, CardItem } from "react-native-elements";
 import Loader from "../components/Loader";
-
-const AnnouncementScreenOld = (props) => {
-  const renderAnnouncement = (itemData) => {
-    return <AnnouncementGridTile color={Colors.accentColour} />;
-  };
-
-  return (
-    <View style={styles.announcementBox}>
-      <Text>{props.navigation.getParam("moduleId")}</Text>
-      <FlatList data={ANNOUNCEMENTITEM} renderItem={renderAnnouncement} />
-    </View>
-  );
-};
 
 const styles = StyleSheet.create({
   announcementBox: {

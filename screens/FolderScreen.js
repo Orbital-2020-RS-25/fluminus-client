@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { Card } from "react-native-elements";
+import { View, Text } from "react-native";
 
 import FolderSystem from "../components/FolderGridTile";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -20,20 +18,6 @@ class FolderScreen extends Component {
 
   modName = this.props.navigation.getParam("moduleId");
 
-  renderFolders = (itemData) => {
-    return (
-      <FolderSystem
-        onSelect={() => {
-          this.props.navigation.navigate({
-            routeName: "FileSelection",
-          });
-        }}
-        name={itemData.item.name}
-        type={itemData.item.type}
-        root={true}
-      />
-    );
-  };
   async getJWT() {
     await AsyncStorage.getItem('token')
                       .then(x => this.setState({token: x}))
@@ -84,7 +68,6 @@ class FolderScreen extends Component {
           rootName={this.state.rootName}
           items={[this.state.folder]}
           root={true}
-          navigate={this.props.navigation}
         />
         /*
         <FlatList
