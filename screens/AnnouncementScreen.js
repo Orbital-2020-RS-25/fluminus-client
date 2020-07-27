@@ -135,7 +135,6 @@ AnnouncementScreen.navigationOptions = (navigationData) => {
     headerTitle: moduleId,
     headerLeft: () => (
       <View>
-        <Text>gg</Text>
       </View>
       // <HeaderButtons HeaderButtonComponent={HeaderButton}>
       //   <Item

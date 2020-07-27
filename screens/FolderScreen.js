@@ -84,6 +84,7 @@ class FolderScreen extends Component {
           rootName={this.state.rootName}
           items={[this.state.folder]}
           root={true}
+          navigate={this.props.navigation}
         />
         /*
         <FlatList

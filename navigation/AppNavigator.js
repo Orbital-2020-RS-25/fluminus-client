@@ -11,10 +11,9 @@ import ModulesSelectionScreen from "../screens/ModulesSelectionScreen";
 import AnnouncementScreen from "../screens/AnnouncementScreen";
 import Login from "../screens/Login";
 import FolderScreen from "../screens/FolderScreen";
-import FileScreen from "../screens/FileScreen";
 import MediaScreen from "../screens/MediaScreen";
-import FriendScreen from "../screens/FriendScreen";
 import Logout from "../screens/Logout";
+import FilesWebView from "../screens/FilesWebView";
 
 import AnnouncementInfoScreen from "../screens/AnnouncementInfoScreen";
 import TBD from "../screens/TBD";
@@ -107,23 +106,7 @@ const ModulesSelectionNavigation = createStackNavigator(
   {
     ModulesSelection: ModulesSelectionScreen,
     "Module info": ModuleNavigator,
-    FileSelection: FileScreen,
-  },
-  {
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: Platform.OS === "android" ? Colors.primaryColour : "",
-      },
-      headerTintColor:
-        Platform.OS === "android" ? Colors.accentColour : Colors.primaryColour,
-    },
-  }
-);
-
-const FriendsNavigation = createStackNavigator(
-  {
-    Friends: FriendScreen,
-    TBD: TBD,
+    FileSelection: FolderScreen,
   },
   {
     defaultNavigationOptions: {

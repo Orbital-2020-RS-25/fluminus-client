@@ -138,9 +138,9 @@ export default class Login extends Component {
       headers: headers,
       body: body,
     })
-      //.then((response) => response.json())
+      .then((response) => response.json())
       .then((result) => {
-        if (!result.ok) {
+        if (!result.status) {
           this.setState({ 
             id: "", 
             password: "",
@@ -148,8 +148,9 @@ export default class Login extends Component {
             loading: false
            });
         } else {
-          this.setState({ token: JSON.stringify(result.json().data), 
-                          loggedIn: result.json().status}, 
+          console.log(result);
+          this.setState({ token: JSON.stringify(result.data), 
+                          loggedIn: result.status}, 
               () => {
                 login_callback(); 
               });

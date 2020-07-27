@@ -11,7 +11,6 @@ import {
   Linking
 } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import * as FileSystem from 'expo-file-system';
 
 /**
  * Recusively generates the directory represented by the json gotten from the pyfluminus. 
@@ -74,6 +73,11 @@ export default class FolderSystem extends Component {
                         //console.log(name);
                         //console.log(content);
                         //console.log(item);
+                        <View style={{flex: 1}}>
+                            <FilesWebView url={content} />
+                        </View>
+
+                        /*
                         if (content.slice(0, 4) === 'file:') {
                             Linking.openURL(content);
                         } else {
@@ -87,7 +91,7 @@ export default class FolderSystem extends Component {
                                 this.setState(this.state);
                                 Linking.openURL(file_uri);
                             });*/
-                        }
+                        
                     }
                 }}>
             <View style={styles.container}>
