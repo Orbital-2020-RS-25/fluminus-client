@@ -20,14 +20,15 @@ Although there is a pre-existing APP for Luminus, its' UI is cluttered, and navi
 ## Sketch of how the app works
 
 <p align="center">
-<img alt="flow", src="./demo/diagram.png">
+<img alt="flow", src="./screenshot/diagram.png">
 </p>
 
 ## Demos
 
 <p align="center">
 <img alt="Logging in" src="./demo/login.gif" width="200"> <img alt="Timetable" src="./demo/schedule.png" width="200">
-
+</p>
+<p align="center">
 <img alt="Announcements" src="./demo/anouncements.gif" width="200"> <img alt="Timetable" src="./demo/folders.gif" width="200">
 </p>
 
