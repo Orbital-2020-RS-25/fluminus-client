@@ -17,19 +17,11 @@ To tackle the identified problems, we defined clear expectations for our propose
 
 Although there is a pre-existing APP for Luminus, its' UI is cluttered, and navigation is tedious. The APP also lacks basic features such as a file management system, making it even harder to use the APP. Thus there is merit in our solution to improve the convenience of NUS students.
 
-## Sketch of how the app works
-
-<p align="center">
-<img alt="flow", src="./demo/diagram.png">
-</p>
-
 ## Demos
 
-<p align="center">
 <img alt="Logging in" src="./demo/login.gif" width="200"> <img alt="Timetable" src="./demo/schedule.png" width="200">
 
 <img alt="Announcements" src="./demo/anouncements.gif" width="200"> <img alt="Timetable" src="./demo/folders.gif" width="200">
-</p>
 
 ## Tech stack
 
@@ -72,7 +64,8 @@ Click [here](https://app.swaggerhub.com/apis-docs/orbital-rs25/another-luminus/)
   * The current data that we use for testing are retrieved from CS2100 (which was closed only at a later date), and OTH633 (non-academic, RC4 student life matters, never closed)
   * We saved the data we could retrieve in our database, and though we did prepare functions for getting such information from LumiNUS, we rely heavily on alternative functions that get pre-collected data from our own database instead (though the proper functions were also tested and were used for the initial collection of data, and they have the same function signatures as the alternative ones, so they can be swapped easily)
 * Problems with Jest with attempting to write tests
-  * When trying to use Expo web framework and Cypress for end to end testing, one of the components used would not transpile, so we had to settle with manually testing it
+  * We tried to make Jest work with ES6 'import/export' statements but to no avail
+  * We will continue to look into workarounds for this or switch to other testing frameworks
 
 ## Software Engineering
 
@@ -86,7 +79,3 @@ Click [here](https://app.swaggerhub.com/apis-docs/orbital-rs25/another-luminus/)
 ## Tests
 
 Manual testing has been done with our actual LumiNUS accounts to ensure authentication and backend functions are working, and both real and demo accounts were used to test and ensure that the mobile client is functional.
-
-Jest and React Native Testing library were used to conduct some unit testing, primarily on the login page.
-
-Postman was used to test the API to ensure the expected.

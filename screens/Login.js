@@ -95,7 +95,7 @@ const storeData = async (key, value) => {
 const WrongInfoBanner = (props) => {
   return (
     <View style={styles.wrongInfoBanner}>
-      <Text style={styles.wrongInfoText}>
+      <Text style={styles.wrongInfoText} accessibilityLabel={'error'}>
         {props.correctCredentials == 1
           ? "ID and Password cannot be empty!"
           : "Incorrect ID/Password."}
@@ -138,9 +138,9 @@ export default class Login extends Component {
       headers: headers,
       body: body,
     })
-      .then((response) => response.json())
+      //.then((response) => response.json())
       .then((result) => {
-        if (!result.status) {
+        if (!result.ok) {
           this.setState({ 
             id: "", 
             password: "",
@@ -148,10 +148,11 @@ export default class Login extends Component {
             loading: false
            });
         } else {
-          this.setState({ token: JSON.stringify(result.data) });
-          this.setState({ loggedIn: result.status }, () => {
-            login_callback();
-          });
+          this.setState({ token: JSON.stringify(result.json().data), 
+                          loggedIn: result.json().status}, 
+              () => {
+                login_callback(); 
+              });
           this.setState({ loading: false });
         }
       })
@@ -171,6 +172,7 @@ export default class Login extends Component {
             <Loader loading={this.state.loading} />
             <View style={styles.rowFlexContainer}>
               <TextInput
+                testID={"user"}
                 ref={"idBox"}
                 style={styles.input}
                 underlineColorAndroid="transparent"
@@ -183,6 +185,7 @@ export default class Login extends Component {
             </View>
             <View style={styles.rowFlexContainer}>
               <TextInput
+                testID={"pass"}
                 ref={"passBox"}
                 style={styles.input}
                 underlineColorAndroid="transparent"
@@ -203,6 +206,7 @@ export default class Login extends Component {
             <View style={styles.rowFlexContainer}>
               <TouchableOpacity
                 style={styles.button}
+                accessibilityLabel={"login"}
                 //what happens when login button is pressed
                 onPress={() => {
                   this.clearText("idBox");

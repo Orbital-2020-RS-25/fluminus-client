@@ -102,6 +102,7 @@ class Homescreen extends Component {
         <RNSchedule
           dataArray={this.state.timetable}
           onEventPress={(appt) => console.log(appt)}
+          //testId={'timetable'}
           />
         //</View>
       )

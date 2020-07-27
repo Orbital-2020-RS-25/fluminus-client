@@ -8,12 +8,6 @@
     "eject": "expo eject",
     "test": "jest"
   },
-  "jest": {
-    "preset": "react-native",
-    "transformIgnorePatterns": [
-      "node_modules/*"
-    ]
-  },
   "dependencies": {
     "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/masked-view": "0.1.6",
@@ -31,7 +25,7 @@
     "react-native-gesture-handler": "~1.6.0",
     "react-native-reanimated": "~1.7.0",
     "react-native-safe-area-context": "0.7.3",
-    "react-native-screens": "~2.2.0",
+    "react-native-screens": "^2.9.0",
     "react-native-web": "~0.11.7",
     "react-navigation": "^4.4.0",
     "react-navigation-drawer": "^2.4.13",
@@ -42,12 +36,39 @@
     "yarn.lock": "^0.0.1-security"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.3",
-    "@babel/preset-env": "^7.10.3",
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/register": "^7.10.5",
     "babel-jest": "^26.1.0",
     "babel-preset-expo": "~8.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "fetch-mock": "^9.10.4",
     "jest": "^26.1.0",
+    "jest-expo": "^38.0.2",
+    "mocha": "^8.0.1",
+    "mock-async-storage": "^2.2.0",
+    "react-native-dotenv": "^2.2.0",
+    "react-native-testing-library": "^2.1.1",
     "react-test-renderer": "^16.13.1"
   },
-  "private": true
+  "private": true,
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|rnschedule|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
+    ],
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/coverage/**",
+      "!**/node_modules/**",
+      "!**/babel.config.js",
+      "!**/jest.setup.js",
+      "!**/__test__/**"
+    ],
+    "setupFiles": [
+      "<rootDir>/__test__/jestSetupFile.js"
+    ]
+  }
 }
